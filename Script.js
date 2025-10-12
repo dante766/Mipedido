@@ -65,13 +65,13 @@ setupImageUpload("overlay-image-input-2", "overlay-frame-2", "No Patch", "overla
 
 const orderModal = document.getElementById('order-modal');
 const closeButton = document.querySelector('.close-button');
-const modalContent = document.getElementById('modal-content'); // **Referencia al contenedor que se va a capturar**
+const modalContent = document.getElementById('modal-content'); // Referencia al contenedor para la captura
 const modalMainImagePlaceholder = document.getElementById('modal-main-image-placeholder');
 const modalSize = document.getElementById('modal-size');
 const modalVersion = document.getElementById('modal-version');
 const modalName = document.getElementById('modal-name');
 const modalNumber = document.getElementById('modal-number');
-const downloadButton = document.querySelector('.modal-confirm-button'); // **Referencia al botón Descargar**
+const downloadButton = document.querySelector('.modal-confirm-button'); // Referencia al botón Descargar
 
 // Función para cerrar el modal
 function closeModal() {
@@ -86,7 +86,7 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// **MEJORA: FUNCIÓN PARA DESCARGAR LA IMAGEN DEL MODAL**
+// **FUNCIÓN PARA DESCARGAR LA IMAGEN DEL MODAL**
 function downloadImage() {
     // 1. Ocultar temporalmente los elementos que no deben aparecer en la imagen
     closeButton.style.display = 'none'; 
@@ -96,7 +96,7 @@ function downloadImage() {
     html2canvas(modalContent, {
         allowTaint: true, 
         useCORS: true, 
-        scale: 2 // Aumenta la escala para mejor calidad de la imagen
+        scale: 2 
     }).then(canvas => {
         // 3. Convertir el canvas a imagen JPG
         const imageURL = canvas.toDataURL('image/jpeg', 0.9);
@@ -118,7 +118,7 @@ function downloadImage() {
     });
 }
 
-// **MEJORA: Event Listener para el botón "Descargar"**
+// **Event Listener para el botón "Descargar"**
 downloadButton.addEventListener('click', downloadImage);
 
 
