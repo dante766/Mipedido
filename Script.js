@@ -65,7 +65,7 @@ setupImageUpload("overlay-image-input-2", "overlay-frame-2", "No Patch", "overla
 
 const orderModal = document.getElementById('order-modal');
 const closeButton = document.querySelector('.close-button');
-const modalContent = document.getElementById('modal-content'); // Referencia al contenedor para la captura
+const modalContent = document.getElementById('modal-content'); // Referencia al contenedor para la captura (debe tener ID en HTML)
 const modalMainImagePlaceholder = document.getElementById('modal-main-image-placeholder');
 const modalSize = document.getElementById('modal-size');
 const modalVersion = document.getElementById('modal-version');
