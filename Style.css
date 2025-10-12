@@ -229,7 +229,7 @@ input[type="file"] {
   border-radius: 10px;
   text-align: center;
   position: relative;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .close-button {
@@ -328,7 +328,7 @@ max-width: 400px;
   margin-top: 15px;
 }
 
-/* **MEJORA: REGLAS PARA RESALTAR LABELS (TEXTO NEGRITA)** */
+/* **MEJORA: REGLAS PARA RESALTAR LABELS (FONDO NEGRO)** */
 .modal-details p strong {
     /* Fondo Negro para la etiqueta */
     background-color: #000; 
