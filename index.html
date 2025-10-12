@@ -9,9 +9,7 @@
 <body>
   <div class="container">
     <div class="controls-container">
-      <div class="file-input-group">
-        <label for="main-image-input" class="custom-file-upload">Upload Image</label>
-      </div>
+      <label for="main-image-input" class="custom-file-upload">Upload Image</label>
     </div>
 
     <div class="main-upload-area" id="main-upload-area">
@@ -92,8 +90,9 @@
           <p><strong>Version:</strong> <span id="modal-version"></span></p>
         </div>
         <div class="detail-column-group">
-          <p><strong>Name:</strong> <span id="modal-name"></span></p>
-          <p><strong>Number:</strong> <span id="modal-number"></span></p>
+          <p id="modal-name-group"><strong>Name:</strong> <span id="modal-name"></span></p>
+          
+          <p id="modal-number-group"><strong>Number:</strong> <span id="modal-number"></span></p>
         </div>
         </div>
 
@@ -104,7 +103,3 @@
   <script src="Script.js"></script>
 </body>
 </html>
-
-
-
-
