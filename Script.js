@@ -72,10 +72,10 @@ const modalVersion = document.getElementById('modal-version');
 const modalName = document.getElementById('modal-name');
 const modalNumber = document.getElementById('modal-number');
 
-// ⭐ NUEVAS REFERENCIAS A LOS CONTENEDORES DE NOMBRE Y NÚMERO
+// NUEVAS REFERENCIAS A LOS CONTENEDORES DE NOMBRE Y NÚMERO
 const modalNameGroup = document.getElementById('modal-name-group');
 const modalNumberGroup = document.getElementById('modal-number-group');
-// ⭐ FIN NUEVAS REFERENCIAS
+// FIN NUEVAS REFERENCIAS
 
 const downloadButton = document.querySelector('.modal-confirm-button'); // Referencia al botón Descargar
 
@@ -110,11 +110,13 @@ function downloadImage() {
         // 4. Crear un enlace temporal y forzar la descarga
         const link = document.createElement('a');
         link.href = imageURL;
-        // La lógica de nombre debe considerar que puede estar oculto, pero el textContent es 'N/A' si estaba vacío
-        const namePart = modalName.textContent && modalName.textContent !== "N/A" ? modalName.textContent : 'SinNombre';
-        const numberPart = modalNumber.textContent && modalNumber.textContent !== "N/A" ? modalNumber.textContent : 'SinNumero';
+        
+        // ⭐ CAMBIO APLICADO: Modificación del nombre por defecto ⭐
+        // Si el campo está vacío (es decir, el textContent es "N/A"), usa los nuevos nombres por defecto.
+        const namePart = modalName.textContent && modalName.textContent !== "N/A" ? modalName.textContent : 'JERSEY';
+        const numberPart = modalNumber.textContent && modalNumber.textContent !== "N/A" ? modalNumber.textContent : 'CUSTOM';
         link.download = `Pedido-${namePart}-${numberPart}.jpg`;
-
+        
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -140,7 +142,7 @@ document.getElementById('add-item-button').addEventListener('click', () => {
     modalSize.textContent = size;
     modalVersion.textContent = version;
     
-    // ⭐ LÓGICA MODIFICADA PARA OCULTAR GRUPOS DE DETALLES VACÍOS ⭐
+    // LÓGICA PARA OCULTAR GRUPOS DE DETALLES VACÍOS
 
     // Manejo de Nombre
     if (name === "") {
@@ -163,7 +165,7 @@ document.getElementById('add-item-button').addEventListener('click', () => {
         modalNumberGroup.style.display = 'block';
         modalNumber.textContent = number;
     }
-    // ⭐ FIN LÓGICA MODIFICADA ⭐
+    // FIN LÓGICA MODIFICADA
 
 
     // 2. Manejar la visualización de la imagen
