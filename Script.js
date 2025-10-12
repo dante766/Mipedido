@@ -71,6 +71,12 @@ const modalSize = document.getElementById('modal-size');
 const modalVersion = document.getElementById('modal-version');
 const modalName = document.getElementById('modal-name');
 const modalNumber = document.getElementById('modal-number');
+
+// ⭐ NUEVAS REFERENCIAS A LOS CONTENEDORES DE NOMBRE Y NÚMERO
+const modalNameGroup = document.getElementById('modal-name-group');
+const modalNumberGroup = document.getElementById('modal-number-group');
+// ⭐ FIN NUEVAS REFERENCIAS
+
 const downloadButton = document.querySelector('.modal-confirm-button'); // Referencia al botón Descargar
 
 // Función para cerrar el modal
@@ -104,6 +110,7 @@ function downloadImage() {
         // 4. Crear un enlace temporal y forzar la descarga
         const link = document.createElement('a');
         link.href = imageURL;
+        // La lógica de nombre debe considerar que puede estar oculto, pero el textContent es 'N/A' si estaba vacío
         const namePart = modalName.textContent && modalName.textContent !== "N/A" ? modalName.textContent : 'SinNombre';
         const numberPart = modalNumber.textContent && modalNumber.textContent !== "N/A" ? modalNumber.textContent : 'SinNumero';
         link.download = `Pedido-${namePart}-${numberPart}.jpg`;
@@ -132,8 +139,32 @@ document.getElementById('add-item-button').addEventListener('click', () => {
     // 1. Mostrar detalles del pedido
     modalSize.textContent = size;
     modalVersion.textContent = version;
-    modalName.textContent = name === "" ? "N/A" : name;
-    modalNumber.textContent = number === "" ? "N/A" : number;
+    
+    // ⭐ LÓGICA MODIFICADA PARA OCULTAR GRUPOS DE DETALLES VACÍOS ⭐
+
+    // Manejo de Nombre
+    if (name === "") {
+        // Si el nombre está vacío, oculta el párrafo completo
+        modalNameGroup.style.display = 'none';
+        modalName.textContent = "N/A"; 
+    } else {
+        // Si el nombre tiene contenido, muéstralo
+        modalNameGroup.style.display = 'block';
+        modalName.textContent = name;
+    }
+
+    // Manejo de Número
+    if (number === "") {
+        // Si el número está vacío, oculta el párrafo completo
+        modalNumberGroup.style.display = 'none';
+        modalNumber.textContent = "N/A"; 
+    } else {
+        // Si el número tiene contenido, muéstralo
+        modalNumberGroup.style.display = 'block';
+        modalNumber.textContent = number;
+    }
+    // ⭐ FIN LÓGICA MODIFICADA ⭐
+
 
     // 2. Manejar la visualización de la imagen
     modalMainImagePlaceholder.innerHTML = ''; // Limpia el contenido
