@@ -1,3 +1,25 @@
+/* --- Estilos para la Imagen de Título --- */
+.header-title-container {
+  /* Alinea el contenido (la imagen) al centro */
+  text-align: center; 
+  /* Agrega espacio debajo para separarlo del botón "Upload Image" */
+  margin-bottom: 10px; 
+  /* Asegura que el contenedor tenga el mismo ancho que el resto de los componentes */
+  width: 400px;
+}
+
+.title-image {
+  /* Establece un ancho máximo para que no se vea gigantesca */
+  max-width: 80%;
+  /* Mantiene la proporción de la imagen */
+  height: auto; 
+  /* Centra la imagen dentro de su contenedor */
+  display: block; 
+  margin: 0 auto; 
+}
+/* ------------------------------------- */
+
+
 body {
   display: flex;
   justify-content: center;
