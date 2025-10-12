@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generar Pedido - Cargar Múltiples Imágenes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="controls-container">
+      <div class="file-input-group">
+        <label for="main-image-input" class="custom-file-upload">Upload Image</label>
+      </div>
+    </div>
+
+    <div class="main-upload-area" id="main-upload-area">
+      <div class="image-frame-content" id="main-preview-content">
+        <span>Upload Jersey</span>
+      </div>
+
+      <div class="overlay-container" id="overlay-container-1">
+        <div class="overlay-frame" id="overlay-frame-1">
+          <span>No Patch</span>
+        </div>
+        <input type="file" id="overlay-image-input-1" accept="image/*" />
+        <label for="overlay-image-input-1" class="custom-file-upload">Patch 2</label>
+      </div>
+
+      <div class="overlay-container" id="overlay-container-2">
+        <div class="overlay-frame" id="overlay-frame-2">
+          <span>No Patch</span>
+        </div>
+        <input type="file" id="overlay-image-input-2" accept="image/*" />
+        <label for="overlay-image-input-2" class="custom-file-upload">Patch 1</label>
+      </div>
+
+      <input type="file" id="main-image-input" accept="image/*" />
+    </div>
+
+    <div class="order-details-container">
+      <div class="detail-group">
+        <label for="size-select">Size:</label>
+        <select id="size-select">
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="2XL">2XL</option>
+          <option value="3XL">3XL</option>
+          <option value="4XL">4XL</option>
+        </select>
+      </div>
+
+      <div class="detail-group">
+        <label for="version-select">Version:</label>
+        <select id="version-select">
+          <option value="Kid">Kid</option>
+          <option value="Fan">Fan</option>
+          <option value="Retro">Retro</option>
+          <option value="Player">Player</option>
+        </select>
+      </div>
+
+      <div class="detail-group">
+        <label for="name-input">Name:</label>
+        <input type="text" id="name-input" placeholder="Nombre a estampar" maxlength="15">
+      </div>
+
+      <div class="detail-group number-and-button-group">
+        <label for="number-input">Number:</label>
+        <input type="number" id="number-input" placeholder="Máx. 2 dígitos" min="0" max="99">
+        <button type="button" id="add-item-button" class="action-button">Agregar Item</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="order-modal" class="modal">
+    <div class="modal-content" id="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Mi Pedido</h2>
+      
+      <div class="modal-image-area">
+        <div class="modal-main-image-placeholder" id="modal-main-image-placeholder">
+          <span>No Jersey Cargado</span>
+        </div>
+      </div>
+      
+      <div class="modal-details">
+        <div class="detail-column-group">
+          <p><strong>Size:</strong> <span id="modal-size"></span></p>
+          <p><strong>Version:</strong> <span id="modal-version"></span></p>
+        </div>
+        <div class="detail-column-group">
+          <p><strong>Name:</strong> <span id="modal-name"></span></p>
+          <p><strong>Number:</strong> <span id="modal-number"></span></p>
+        </div>
+        </div>
+
+      <button type="button" class="action-button modal-confirm-button">Descargar</button>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

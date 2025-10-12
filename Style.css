@@ -1,0 +1,348 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* --- Área de carga principal --- */
+.main-upload-area {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background-color: #e0e0e0;
+  border: 2px dashed #bbb;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.main-upload-area .image-frame-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  color: #888;
+  z-index: 2;
+}
+
+.main-upload-area img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* --- Cuadros de patches --- */
+.overlay-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  z-index: 3;
+}
+
+.overlay-frame {
+  width: 90px;
+  height: 90px;
+  object-fit: cover; /* Asegura que la imagen cubra el área sin salirse, recortando si es necesario */
+  background-color: rgba(255, 255, 255, 0.7);
+  margin-top: 5px; /* probando */
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  display: block; /* tenia flex */
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;  
+}
+
+.overlay-frame img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover; /* Asegura que la imagen cubra el área sin salirse, recortando si es necesario */
+  background-color: rgba(255, 255, 255, 0.7);
+  margin-top: 5px; /* probando */
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  display: block; /* tenia flex */
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;  
+}
+
+.overlay-frame span {
+  font-size: 0.8em;
+  color: #666;
+  text-align: center;
+  padding: 5px;
+}
+
+#overlay-container-1 {
+  bottom: 120px;
+  right: 10px;
+}
+
+#overlay-container-2 {
+  bottom: 120px;
+  left: 10px;
+}
+
+/* --- Inputs y botones --- */
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-size: 0.75em;
+  transition: background-color 0.2s;
+  text-align: center;
+}
+
+.custom-file-upload:hover {
+  background-color: #0056b3;
+}
+
+.controls-container {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* --- Detalles del pedido --- */
+.order-details-container {
+  width: 400px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.detail-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.detail-group label {
+  font-weight: bold;
+  color: #333;
+  width: 80px;
+  text-align: right;
+}
+
+.detail-group select,
+.detail-group input[type="text"],
+.detail-group input[type="number"] {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  flex-grow: 1;
+}
+
+.number-and-button-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.number-and-button-group input[type="number"] {
+  width: 80px;
+}
+
+.action-button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex-grow: 1;
+}
+
+.action-button:hover {
+  background-color: #1e7e34;
+}
+
+/* --- Estilos del Modal (Pop-up) --- */
+
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 10; /* Debe estar por encima de todo */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* 5% superior, centrado horizontalmente */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Podrías ajustar esto */
+  max-width: 500px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-image-area {
+position: relative; 
+width: 100%; 
+padding-top: 80%; /* Crea una relación de aspecto 1:1 */ 
+margin: 0 auto 20px auto; 
+max-width: 400px;
+}
+
+.modal-main-image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #e0e0e0;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.modal-main-image-placeholder img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.modal-main-image-placeholder .patch-overlay {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #333;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-main-image-placeholder #modal-patch-1 {
+  top: 35%;
+  right: 02%;
+}
+
+.modal-main-image-placeholder #modal-patch-2 {
+  top: 38%;
+  left: 02%;
+}
+
+/* INICIO DE CAMBIOS PARA DETALLES EN DOS COLUMNAS */
+.modal-details {
+  display: flex; 
+  justify-content: space-between;
+  gap: 90px;
+  text-align: left;
+  margin: 15px 10;
+  padding: 0 50px;
+}
+
+.detail-column-group {
+  flex: 1; 
+  min-width: 0; 
+}
+
+.modal-details p {
+  margin: 5px 0;
+  font-size: 1.1em;
+  word-wrap: break-word; 
+}
+/* FIN DE CAMBIOS PARA DETALLES EN DOS COLUMNAS */
+
+.modal-confirm-button {
+  width: 100%;
+  margin-top: 15px;
+}
+
+/* **MEJORA: REGLAS PARA RESALTAR LABELS (TEXTO NEGRITA)** */
+.modal-details p strong {
+    /* Fondo Negro para la etiqueta */
+    background-color: #000; 
+    /* Texto Blanco */
+    color: #fff; 
+    /* Espacio interno para que el fondo se vea bien */
+    padding: 3px 6px; 
+    /* Esquinas ligeramente redondeadas */
+    border-radius: 4px; 
+    /* Permite aplicar padding y min-width */
+    display: inline-block; 
+    /* Margen para separar el fondo negro del valor */
+    margin-right: 8px; 
+    /* Asegura que todas las etiquetas tengan un ancho uniforme */
+    min-width: 60px; 
+    text-align: right; 
+}
