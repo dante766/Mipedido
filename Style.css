@@ -411,4 +411,11 @@ max-width: 400px;
   border: 1px solid #ccc; /* Borde sutil para la imagen */
 }
 
+.warning-text {
+  color: #b30000;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
 
