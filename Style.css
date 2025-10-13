@@ -327,15 +327,38 @@ max-width: 400px;
 .modal-details {
   display: flex; 
   justify-content: space-between;
-  gap: 90px;
+  /* Reducido para mejor uso del espacio en general */
+  gap: 20px; 
   text-align: left;
-  margin: 15px 10;
-  padding: 0 50px;
+  /* Centrado y mejor margen */
+  margin: 15px auto; 
+  /* Reducido para mejor uso del espacio en general */
+  padding: 0 20px; 
+  max-width: 450px;
 }
 
 .detail-column-group {
   flex: 1; 
   min-width: 0; 
+}
+
+/* **MODIFICACIÓN APLICADA: Media Query para dispositivos móviles** */
+@media (max-width: 500px) {
+    .modal-details {
+        /* Fuerza a que los grupos de columnas se apilen verticalmente */
+        flex-direction: column; 
+        /* Quita el padding horizontal para usar el ancho completo */
+        padding: 0 5px; 
+        gap: 0; /* No necesitamos un gap grande si están apilados */
+        margin: 15px 5px; /* Más estrecho */
+    }
+    
+    .detail-column-group {
+        /* Asegura que ocupen el ancho completo */
+        width: 100%; 
+        /* Agrega un poco de margen entre los grupos apilados */
+        margin-bottom: 10px;
+    }
 }
 
 .modal-details p {
@@ -368,5 +391,3 @@ max-width: 400px;
     min-width: 60px; 
     text-align: right; 
 }
-
-
