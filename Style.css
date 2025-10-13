@@ -173,17 +173,16 @@ input[type="file"] {
   margin-bottom: 10px;
 }
 
-.help-button {
-  /* CAMBIADO A VIOLETA (Ejemplo: #6f42c1) */
-  background-color: #6f42c1; 
+/* ESTE BLOQUE FUE MODIFICADO PARA FORZAR EL VIOLETA */
+.help-buttons-container .help-button {
+  background-color: #6f42c1 !important; /* VIOLETA BASE */
   padding: 8px 5px; 
   font-size: 0.9em;
   flex-grow: 1;
 }
 
-.help-button:hover {
-  /* CAMBIADO A VIOLETA OSCURO PARA HOVER (Ejemplo: #5a3597) */
-  background-color: #5a3597;
+.help-buttons-container .help-button:hover {
+  background-color: #5a3597 !important; /* VIOLETA OSCURO */
 }
 
 
@@ -237,7 +236,8 @@ input[type="file"] {
   padding: 8px 15px;
   border: none;
   border-radius: 4px;
-  background-color: #28a745;
+  /* El botón "Agregar Item" seguirá siendo verde por esta clase */
+  background-color: #28a745; 
   color: white;
   font-size: 1em;
   cursor: pointer;
@@ -410,6 +410,3 @@ max-width: 400px;
   margin: 0 auto;
   border: 1px solid #ccc; /* Borde sutil para la imagen */
 }
-
-
-
