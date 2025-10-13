@@ -90,10 +90,10 @@ body {
   height: 90px;
   object-fit: cover; /* Asegura que la imagen cubra el área sin salirse, recortando si es necesario */
   background-color: rgba(255, 255, 255, 0.7);
-  margin-top: 5px; /* probando */
+  margin-top: 5px; 
   border: 1px solid #aaa;
   border-radius: 8px;
-  display: block; /* tenia flex */
+  display: block; 
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -106,10 +106,10 @@ body {
   height: 90px;
   object-fit: cover; /* Asegura que la imagen cubra el área sin salirse, recortando si es necesario */
   background-color: rgba(255, 255, 255, 0.7);
-  margin-top: 5px; /* probando */
+  margin-top: 5px; 
   border: 1px solid #aaa;
   border-radius: 8px;
-  display: block; /* tenia flex */
+  display: block; 
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -126,13 +126,13 @@ body {
 
 /* AJUSTE DE POSICIÓN PARA LOS PARCHES CUADRADOS */
 #overlay-container-1 {
-  top: 100px; /* Mueve hacia arriba */
+  top: 15%; /* Mueve hacia arriba, usando % para flexibilidad */
   right: 10px;
   bottom: initial; 
 }
 
 #overlay-container-2 {
-  top: 100px; /* Mueve hacia arriba */
+  top: 15%; /* Mueve hacia arriba, usando % para flexibilidad */
   left: 10px;
   bottom: initial;
 }
@@ -141,8 +141,8 @@ body {
 
 /* --- Estilos para el nuevo parche rectangular (Name Patch) --- */
 #overlay-container-3 {
-  /* Posicionamiento en el centro inferior de la caja principal */
-  bottom: 30px; /* Distancia desde abajo, ajústala si es necesario */
+  /* Posicionamiento en el centro inferior */
+  bottom: 20px; /* Distancia desde abajo, más bajo para evitar colisiones */
   left: 50%;
   transform: translateX(-50%); /* Centrado horizontal perfecto */
 }
@@ -164,9 +164,9 @@ body {
 
 /* Estilo para la imagen dentro del marco rectangular */
 .overlay-frame-name img {
-  width: 100%; /* Ocupa todo el ancho del marco */
-  height: 100%; /* Ocupa todo el alto del marco */
-  object-fit: contain; /* Ajusta la imagen dentro sin recortar */
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* CLAVE: Asegura que la imagen se vea completamente dentro del marco rectangular */
   border-radius: 8px;
   display: block;
 }
@@ -385,27 +385,27 @@ max-width: 400px;
 .modal-main-image-placeholder #modal-patch-1 {
   width: 90px;
   height: 90px;
-  top: 18%; /* Ajustado para mover hacia arriba */
+  top: 15%; /* Coincide con el % del área de carga */
   right: 02%;
 }
 
 .modal-main-image-placeholder #modal-patch-2 {
   width: 90px;
   height: 90px;
-  top: 18%; /* Ajustado para mover hacia arriba */
+  top: 15%; /* Coincide con el % del área de carga */
   left: 02%;
 }
 
 /* NUEVA POSICIÓN DEL PARCHE RECTANGULAR EN EL MODAL */
 .modal-main-image-placeholder #modal-patch-3 {
   top: initial;
-  bottom: 10%; /* Posiciona un 10% desde el fondo */
+  bottom: 5%; /* Posiciona más cerca del fondo del modal */
   left: 50%;
   transform: translateX(-50%); /* Centrado horizontal */
-  width: 250px; /* Ancho más grande para el texto */
-  height: 60px; /* Alto rectangular */
-  border: 1px solid #ff0000; /* Puedes usar un color diferente para el borde */
-  object-fit: contain; /* Asegura que la imagen rectangular se ajuste bien */
+  width: 250px; 
+  height: 60px; 
+  border: 1px solid #ff0000; 
+  object-fit: contain; 
 }
 /* FIN: NUEVOS ESTILOS DE POSICIONAMIENTO EN EL MODAL */
 
