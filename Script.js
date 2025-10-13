@@ -7,10 +7,10 @@ const imageURLs = {
 
 // MAPA DE URLS PARA LAS TABLAS DE AYUDA (DEBES REEMPLAZAR ESTAS URLS CON LAS REALES)
 const helpImageMap = {
-    Kid: 'URL_DE_TU_IMAGEN_PARA_TABLA_KID.png',
-    Retro: 'URL_DE_TU_IMAGEN_PARA_TABLA_RETRO.png',
-    Fan: 'URL_DE_TU_IMAGEN_PARA_TABLA_FAN.png',
-    Player: 'URL_DE_TU_IMAGEN_PARA_TABLA_PLAYER.png'
+    Kid: 'https://github.com/dante766/Mipedido/blob/816dd5da12184e48d728525f914ef1615f60d12a/kid.jpeg',
+    Retro: 'https://github.com/dante766/Mipedido/blob/816dd5da12184e48d728525f914ef1615f60d12a/retro.jpeg',
+    Fan: 'https://github.com/dante766/Mipedido/blob/816dd5da12184e48d728525f914ef1615f60d12a/fan.jpeg',
+    Player: 'https://github.com/dante766/Mipedido/blob/816dd5da12184e48d728525f914ef1615f60d12a/player.jpeg'
 };
 
 function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
@@ -264,3 +264,4 @@ helpButtons.forEach(button => {
         helpModal.style.display = 'block';
     });
 });
+
