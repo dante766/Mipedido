@@ -5,6 +5,14 @@ const imageURLs = {
   overlay2: null,
 };
 
+// MAPA DE URLS PARA LAS TABLAS DE AYUDA (DEBES REEMPLAZAR ESTAS URLS CON LAS REALES)
+const helpImageMap = {
+    Kid: 'URL_DE_TU_IMAGEN_PARA_TABLA_KID.png',
+    Retro: 'URL_DE_TU_IMAGEN_PARA_TABLA_RETRO.png',
+    Fan: 'URL_DE_TU_IMAGEN_PARA_TABLA_FAN.png',
+    Player: 'URL_DE_TU_IMAGEN_PARA_TABLA_PLAYER.png'
+};
+
 function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
   const input = document.getElementById(inputId);
   const previewElement = document.getElementById(previewElementId);
@@ -61,30 +69,29 @@ setupImageUpload("overlay-image-input-1", "overlay-frame-1", "No Patch", "overla
 setupImageUpload("overlay-image-input-2", "overlay-frame-2", "No Patch", "overlay2");
 
 
-// --- Lógica del Modal (Pop-up) ---
+// --- Lógica del Modal de Pedido (Pop-up) ---
 
 const orderModal = document.getElementById('order-modal');
 const closeButton = document.querySelector('.close-button');
-const modalContent = document.getElementById('modal-content'); // Referencia al contenedor para la captura (debe tener ID en HTML)
+const modalContent = document.getElementById('modal-content'); // Referencia al contenedor para la captura
 const modalMainImagePlaceholder = document.getElementById('modal-main-image-placeholder');
 const modalSize = document.getElementById('modal-size');
 const modalVersion = document.getElementById('modal-version');
 const modalName = document.getElementById('modal-name');
 const modalNumber = document.getElementById('modal-number');
 
-// NUEVAS REFERENCIAS A LOS CONTENEDORES DE NOMBRE Y NÚMERO
+// REFERENCIAS A LOS CONTENEDORES DE NOMBRE Y NÚMERO
 const modalNameGroup = document.getElementById('modal-name-group');
 const modalNumberGroup = document.getElementById('modal-number-group');
-// FIN NUEVAS REFERENCIAS
 
-const downloadButton = document.querySelector('.modal-confirm-button'); // Referencia al botón Descargar
+const downloadButton = document.querySelector('.modal-confirm-button'); 
 
-// Función para cerrar el modal
+// Función para cerrar el modal de Pedido
 function closeModal() {
     orderModal.style.display = 'none';
 }
 
-// Event listeners para cerrar el modal (botón X y clic fuera del modal)
+// Event listeners para cerrar el modal de Pedido
 closeButton.addEventListener('click', closeModal);
 window.addEventListener('click', (event) => {
     if (event.target === orderModal) {
@@ -92,7 +99,7 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// **FUNCIÓN PARA DESCARGAR LA IMAGEN DEL MODAL (CORREGIDA)**
+// **FUNCIÓN PARA DESCARGAR LA IMAGEN (CON CORRECCIONES PARA html2canvas)**
 function downloadImage() {
     // 1. Ocultar temporalmente los elementos que no deben aparecer en la imagen
     closeButton.style.display = 'none'; 
@@ -132,7 +139,7 @@ function downloadImage() {
 downloadButton.addEventListener('click', downloadImage);
 
 
-// Botón "Agregar Item" para mostrar el modal
+// Botón "Agregar Item" para mostrar el modal de Pedido
 document.getElementById('add-item-button').addEventListener('click', () => {
     const size = document.getElementById('size-select').value;
     const version = document.getElementById('version-select').value;
@@ -211,4 +218,49 @@ document.getElementById('add-item-button').addEventListener('click', () => {
     console.log(`Versión: ${version}`);
     console.log(`Nombre: ${name}`);
     console.log(`Número: ${number}`);
+});
+
+
+// --- Lógica del Modal de Ayuda (Pop-up) ---
+
+const helpModal = document.getElementById('help-modal');
+const closeHelpModalButton = document.getElementById('close-help-modal');
+const helpModalTitle = document.getElementById('help-modal-title');
+const helpImage = document.getElementById('help-image');
+const helpButtons = document.querySelectorAll('.help-button');
+
+// Función para cerrar el modal de Ayuda
+function closeHelpModal() {
+    helpModal.style.display = 'none';
+}
+
+// Event listeners para cerrar el modal de Ayuda
+closeHelpModalButton.addEventListener('click', closeHelpModal);
+window.addEventListener('click', (event) => {
+    // Si se hace clic fuera del modal de ayuda, cerrarlo
+    if (event.target === helpModal) {
+        closeHelpModal();
+    }
+});
+
+// Event listeners para los botones de ayuda
+helpButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const version = button.getAttribute('data-version');
+        const imageUrl = helpImageMap[version];
+        
+        // 1. Configurar y mostrar el modal
+        helpModalTitle.textContent = `Tabla de Tallas - ${version}`;
+        
+        if (imageUrl && imageUrl.startsWith('http')) { // Comprobación simple para URLs reales
+            helpImage.src = imageUrl;
+            helpImage.alt = `Tabla de Tallas Versión ${version}`;
+        } else {
+            // Muestra un marcador de posición si la URL no es válida o está por defecto
+            helpImage.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23f0f0f0"/><text x="200" y="150" font-family="Arial" font-size="20" fill="%23333" text-anchor="middle">REEMPLAZAR URL DE IMAGEN DE TABLA</text><text x="200" y="180" font-family="Arial" font-size="16" fill="%23333" text-anchor="middle">Version: ${version}</text></svg>';
+            helpImage.alt = 'URL de imagen de tabla no configurada.';
+        }
+
+        helpModal.style.display = 'block';
+    });
 });
