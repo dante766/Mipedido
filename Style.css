@@ -174,14 +174,16 @@ input[type="file"] {
 }
 
 .help-button {
-  background-color: #007bff; /* Color azul para diferenciar */
-  padding: 8px 5px; /* Más corto para que quepan 4 */
+  /* CAMBIADO A VIOLETA (Ejemplo: #6f42c1) */
+  background-color: #6f42c1; 
+  padding: 8px 5px; 
   font-size: 0.9em;
   flex-grow: 1;
 }
 
 .help-button:hover {
-  background-color: #0056b3;
+  /* CAMBIADO A VIOLETA OSCURO PARA HOVER (Ejemplo: #5a3597) */
+  background-color: #5a3597;
 }
 
 
@@ -408,5 +410,6 @@ max-width: 400px;
   margin: 0 auto;
   border: 1px solid #ccc; /* Borde sutil para la imagen */
 }
+
 
 
