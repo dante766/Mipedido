@@ -3,6 +3,7 @@ const imageURLs = {
   main: null,
   overlay1: null,
   overlay2: null,
+  overlay3: null, // <--- ¡NUEVO! URL para el parche rectangular (Name Patch)
 };
 
 // MAPA DE URLS PARA LAS TABLAS DE AYUDA (¡CORREGIDAS A RAW.GITHUBUSERCONTENT!)
@@ -30,7 +31,8 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
         if (imgElement) imgElement.remove();
         previewElement.style.display = 'flex';
       } else {
-        previewElement.innerHTML = `<span>${defaultText}</span>`;
+        // Se asegura de usar el span para todos los overlays
+        previewElement.innerHTML = `<span>${defaultText}</span>`; 
       }
       return;
     }
@@ -50,6 +52,7 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
         imgElement.src = url;
         previewElement.style.display = 'none';
       } else {
+        // Se asegura de usar la imagen para todos los overlays
         previewElement.innerHTML = `<img src="${url}" alt="Imagen cargada">`;
       }
     };
@@ -67,6 +70,7 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
 setupImageUpload("main-image-input", "main-preview-content", "Subí una imagen principal", "main");
 setupImageUpload("overlay-image-input-1", "overlay-frame-1", "No Patch", "overlay1");
 setupImageUpload("overlay-image-input-2", "overlay-frame-2", "No Patch", "overlay2");
+setupImageUpload("overlay-image-input-3", "overlay-frame-3", "No Name Patch", "overlay3"); // <--- ¡NUEVO!
 
 
 // --- Lógica del Modal de Pedido (Pop-up) ---
@@ -208,6 +212,17 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             patch2.id = 'modal-patch-2';
             modalMainImagePlaceholder.appendChild(patch2);
         }
+
+        // --- ¡NUEVO! LÓGICA PARA EL PARCHE RECTANGULAR DE NOMBRE ---
+        if (imageURLs.overlay3) {
+            const patch3 = document.createElement('img');
+            patch3.src = imageURLs.overlay3;
+            patch3.alt = 'Name Patch';
+            patch3.className = 'patch-overlay';
+            patch3.id = 'modal-patch-3'; // Usando el ID definido en el CSS
+            modalMainImagePlaceholder.appendChild(patch3);
+        }
+        // --- FIN: LÓGICA PARA EL PARCHE RECTANGULAR DE NOMBRE ---
     }
 
     // 3. Mostrar el modal
