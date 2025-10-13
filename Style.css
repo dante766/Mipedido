@@ -274,7 +274,8 @@ input[type="file"] {
 .modal-image-area {
 position: relative; 
 width: 100%; 
-padding-top: 80%; /* Crea una relación de aspecto 1:1 */ 
+/* CORRECCIÓN DE ALTURA (SOLUCIÓN ANTERIOR) */
+padding-top: 65%; 
 margin: 0 auto 20px auto; 
 max-width: 400px;
 }
@@ -327,12 +328,10 @@ max-width: 400px;
 .modal-details {
   display: flex; 
   justify-content: space-between;
-  /* Reducido para mejor uso del espacio en general */
+  /* Ajuste de gap y padding para mejor visualización general */
   gap: 20px; 
   text-align: left;
-  /* Centrado y mejor margen */
   margin: 15px auto; 
-  /* Reducido para mejor uso del espacio en general */
   padding: 0 20px; 
   max-width: 450px;
 }
@@ -342,15 +341,16 @@ max-width: 400px;
   min-width: 0; 
 }
 
-/* **MODIFICACIÓN APLICADA: Media Query para dispositivos móviles** */
+
+/* **Media Query para dispositivos móviles** */
 @media (max-width: 500px) {
     .modal-details {
         /* Fuerza a que los grupos de columnas se apilen verticalmente */
         flex-direction: column; 
         /* Quita el padding horizontal para usar el ancho completo */
         padding: 0 5px; 
-        gap: 0; /* No necesitamos un gap grande si están apilados */
-        margin: 15px 5px; /* Más estrecho */
+        gap: 0; 
+        margin: 15px 5px; 
     }
     
     .detail-column-group {
@@ -358,6 +358,15 @@ max-width: 400px;
         width: 100%; 
         /* Agrega un poco de margen entre los grupos apilados */
         margin-bottom: 10px;
+    }
+
+    /* ⭐ CAMBIO CLAVE PARA LA ALINEACIÓN DEL LABEL Y VALOR EN MÓVIL ⭐ */
+    .modal-details p {
+        display: flex; /* <-- FUERZA ALINEACIÓN EN LÍNEA */
+        align-items: center;
+        margin: 5px 0;
+        font-size: 1.1em;
+        /* Quitamos word-wrap en móvil para priorizar la alineación */
     }
 }
 
@@ -373,7 +382,7 @@ max-width: 400px;
   margin-top: 15px;
 }
 
-/* **MEJORA: REGLAS PARA RESALTAR LABELS (FONDO NEGRO)** */
+/* **REGLAS PARA RESALTAR LABELS (FONDO NEGRO)** */
 .modal-details p strong {
     /* Fondo Negro para la etiqueta */
     background-color: #000; 
@@ -387,7 +396,7 @@ max-width: 400px;
     display: inline-block; 
     /* Margen para separar el fondo negro del valor */
     margin-right: 8px; 
-    /* Asegura que todas las etiquetas tengan un ancho uniforme */
-    min-width: 60px; 
+    /* ⭐ CORRECCIÓN CLAVE: Eliminar min-width que forzaba el salto de línea ⭐ */
+    /* min-width: 60px; */ 
     text-align: right; 
 }
