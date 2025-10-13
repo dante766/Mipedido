@@ -274,7 +274,7 @@ input[type="file"] {
 .modal-image-area {
 position: relative; 
 width: 100%; 
-/* CORRECCIÓN DE ALTURA (SOLUCIÓN ANTERIOR) */
+/* CORRECCIÓN: Se reduce la altura del contenedor para dar espacio en móvil */
 padding-top: 65%; 
 margin: 0 auto 20px auto; 
 max-width: 400px;
@@ -328,11 +328,11 @@ max-width: 400px;
 .modal-details {
   display: flex; 
   justify-content: space-between;
-  /* Ajuste de gap y padding para mejor visualización general */
-  gap: 20px; 
+  /* CORRECCIÓN: Reducción del gap y el padding para que quepa en móvil */
+  gap: 15px;
   text-align: left;
   margin: 15px auto; 
-  padding: 0 20px; 
+  padding: 0 5px; /* Muy reducido para móvil */
   max-width: 450px;
 }
 
@@ -341,39 +341,11 @@ max-width: 400px;
   min-width: 0; 
 }
 
-
-/* **Media Query para dispositivos móviles** */
-@media (max-width: 500px) {
-    .modal-details {
-        /* Fuerza a que los grupos de columnas se apilen verticalmente */
-        flex-direction: column; 
-        /* Quita el padding horizontal para usar el ancho completo */
-        padding: 0 5px; 
-        gap: 0; 
-        margin: 15px 5px; 
-    }
-    
-    .detail-column-group {
-        /* Asegura que ocupen el ancho completo */
-        width: 100%; 
-        /* Agrega un poco de margen entre los grupos apilados */
-        margin-bottom: 10px;
-    }
-
-    /* ⭐ CAMBIO CLAVE PARA LA ALINEACIÓN DEL LABEL Y VALOR EN MÓVIL ⭐ */
-    .modal-details p {
-        display: flex; /* <-- FUERZA ALINEACIÓN EN LÍNEA */
-        align-items: center;
-        margin: 5px 0;
-        font-size: 1.1em;
-        /* Quitamos word-wrap en móvil para priorizar la alineación */
-    }
-}
-
 .modal-details p {
   margin: 5px 0;
   font-size: 1.1em;
-  word-wrap: break-word; 
+  /* CORRECCIÓN CLAVE: Fuerza al label y al valor a permanecer en la misma línea */
+  white-space: nowrap; 
 }
 /* FIN DE CAMBIOS PARA DETALLES EN DOS COLUMNAS */
 
@@ -396,7 +368,7 @@ max-width: 400px;
     display: inline-block; 
     /* Margen para separar el fondo negro del valor */
     margin-right: 8px; 
-    /* ⭐ CORRECCIÓN CLAVE: Eliminar min-width que forzaba el salto de línea ⭐ */
+    /* CORRECCIÓN CLAVE: Se elimina la propiedad min-width que causaba el salto de línea */
     /* min-width: 60px; */ 
     text-align: right; 
 }
