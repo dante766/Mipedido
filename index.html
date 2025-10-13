@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generar Pedido</title>
+  <title>Generar Pedido - Cargar Múltiples Imágenes</title>
   <link rel="stylesheet" href="Style.css">
 </head>
 <body>
@@ -40,6 +40,12 @@
       <input type="file" id="main-image-input" accept="image/*" />
     </div>
 
+    <div class="help-buttons-container">
+      <button type="button" class="action-button help-button" data-version="Kid">Tabla Kid</button>
+      <button type="button" class="action-button help-button" data-version="Retro">Tabla Retro</button>
+      <button type="button" class="action-button help-button" data-version="Fan">Tabla Fan</button>
+      <button type="button" class="action-button help-button" data-version="Player">Tabla Player</button>
+    </div>
     <div class="order-details-container">
       <div class="detail-group">
         <label for="size-select">Size:</label>
@@ -103,8 +109,17 @@
       <button type="button" class="action-button modal-confirm-button">Descargar</button>
     </div>
   </div>
+  
+  <div id="help-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="close-help-modal">&times;</span>
+      <h2 id="help-modal-title">Tabla de Ayuda</h2>
+      <div class="help-image-container">
+        <img id="help-image" src="" alt="Tabla de Tallas/Versiones">
+      </div>
+    </div>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="Script.js"></script>
 </body>
 </html>
-
