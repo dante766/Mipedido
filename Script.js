@@ -5,12 +5,12 @@ const imageURLs = {
   overlay2: null,
 };
 
-// MAPA DE URLS PARA LAS TABLAS DE AYUDA (DEBES REEMPLAZAR ESTAS URLS CON LAS REALES)
+// MAPA DE URLS PARA LAS TABLAS DE AYUDA (¡CORREGIDAS A RAW.GITHUBUSERCONTENT!)
 const helpImageMap = {
-    Kid: 'https://github.com/dante766/Mipedido/blob/816dd5da12184e48d728525f914ef1615f60d12a/kid.jpeg',
-    Retro: 'https://github.com/dante766/Mipedido/blob/816dd5da12184e48d728525f914ef1615f60d12a/retro.jpeg',
-    Fan: 'https://github.com/dante766/Mipedido/blob/816dd5da12184e48d728525f914ef1615f60d12a/fan.jpeg',
-    Player: 'https://github.com/dante766/Mipedido/blob/816dd5da12184e48d728525f914ef1615f60d12a/player.jpeg'
+    Kid: 'https://raw.githubusercontent.com/dante766/Mipedido/816dd5da12184e48d728525f914ef1615f60d12a/kid.jpeg',
+    Retro: 'https://raw.githubusercontent.com/dante766/Mipedido/816dd5da12184e48d728525f914ef1615f60d12a/retro.jpeg',
+    Fan: 'https://raw.githubusercontent.com/dante766/Mipedido/816dd5da12184e48d728525f914ef1615f60d12a/fan.jpeg',
+    Player: 'https://raw.githubusercontent.com/dante766/Mipedido/816dd5da12184e48d728525f914ef1615f60d12a/player.jpeg'
 };
 
 function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
@@ -252,16 +252,16 @@ helpButtons.forEach(button => {
         // 1. Configurar y mostrar el modal
         helpModalTitle.textContent = `Tabla de Tallas - ${version}`;
         
-        if (imageUrl && imageUrl.startsWith('http')) { // Comprobación simple para URLs reales
+        // La URL debe ser una URL de imagen directa
+        if (imageUrl) {
             helpImage.src = imageUrl;
             helpImage.alt = `Tabla de Tallas Versión ${version}`;
         } else {
-            // Muestra un marcador de posición si la URL no es válida o está por defecto
-            helpImage.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23f0f0f0"/><text x="200" y="150" font-family="Arial" font-size="20" fill="%23333" text-anchor="middle">REEMPLAZAR URL DE IMAGEN DE TABLA</text><text x="200" y="180" font-family="Arial" font-size="16" fill="%23333" text-anchor="middle">Version: ${version}</text></svg>';
-            helpImage.alt = 'URL de imagen de tabla no configurada.';
+            // Muestra un marcador de posición si la URL no se encuentra
+            helpImage.src = '';
+            helpImage.alt = 'Imagen de tabla no disponible.';
         }
 
         helpModal.style.display = 'block';
     });
 });
-
