@@ -25,6 +25,7 @@ body {
   justify-content: center;
   align-items: flex-start; /* <--- CAMBIA 'center' a 'flex-start' */
   min-height: 100vh;
+  background-color: #f5f5f5;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0px;
@@ -163,6 +164,28 @@ input[type="file"] {
   gap: 10px;
 }
 
+/* --- Contenedor de Botones de Ayuda --- */
+.help-buttons-container {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.help-button {
+  background-color: #007bff; /* Color azul para diferenciar */
+  padding: 8px 5px; /* Más corto para que quepan 4 */
+  font-size: 0.9em;
+  flex-grow: 1;
+}
+
+.help-button:hover {
+  background-color: #0056b3;
+}
+
+
 /* --- Detalles del pedido --- */
 .order-details-container {
   width: 400px;
@@ -273,8 +296,7 @@ input[type="file"] {
 .modal-image-area {
 position: relative; 
 width: 100%; 
-/* CORRECCIÓN DE ALTURA CRÍTICA: Se define una altura fija */
-/* Antes: padding-top: 65%; */
+/* CORRECCIÓN DE ALTURA CRÍTICA: Se define una altura fija para la captura */
 height: 350px; /* Nuevo alto fijo para mejor captura */
 margin: 0 auto 20px auto; 
 max-width: 400px;
@@ -373,3 +395,17 @@ max-width: 400px;
     text-align: right; 
 }
 
+/* --- Estilos específicos para la IMAGEN DE AYUDA --- */
+.help-image-container {
+  max-width: 100%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+#help-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid #ccc; /* Borde sutil para la imagen */
+}
