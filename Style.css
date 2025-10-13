@@ -274,8 +274,9 @@ input[type="file"] {
 .modal-image-area {
 position: relative; 
 width: 100%; 
-/* CORRECCIÓN: Se reduce la altura del contenedor para dar espacio en móvil */
-padding-top: 65%; 
+/* CORRECCIÓN DE ALTURA CRÍTICA: Se define una altura fija */
+/* Antes: padding-top: 65%; */
+height: 350px; /* Nuevo alto fijo para mejor captura */
 margin: 0 auto 20px auto; 
 max-width: 400px;
 }
@@ -368,7 +369,7 @@ max-width: 400px;
     display: inline-block; 
     /* Margen para separar el fondo negro del valor */
     margin-right: 8px; 
-    /* CORRECCIÓN CLAVE: Se elimina la propiedad min-width que causaba el salto de línea */
+    /* Se quita min-width para evitar saltos de línea */
     /* min-width: 60px; */ 
     text-align: right; 
 }
