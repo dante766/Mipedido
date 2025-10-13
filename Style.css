@@ -124,15 +124,60 @@ body {
   padding: 5px;
 }
 
+/* AJUSTE DE POSICIÓN PARA LOS PARCHES CUADRADOS */
 #overlay-container-1 {
-  bottom: 120px;
+  top: 100px; /* Mueve hacia arriba */
   right: 10px;
+  bottom: initial; 
 }
 
 #overlay-container-2 {
-  bottom: 120px;
+  top: 100px; /* Mueve hacia arriba */
   left: 10px;
+  bottom: initial;
 }
+/* FIN AJUSTE DE POSICIÓN PARA LOS PARCHES CUADRADOS */
+
+
+/* --- Estilos para el nuevo parche rectangular (Name Patch) --- */
+#overlay-container-3 {
+  /* Posicionamiento en el centro inferior de la caja principal */
+  bottom: 30px; /* Distancia desde abajo, ajústala si es necesario */
+  left: 50%;
+  transform: translateX(-50%); /* Centrado horizontal perfecto */
+}
+
+/* Define el marco rectangular para la imagen de nombre */
+.overlay-frame-name {
+  width: 250px; /* Ancho más grande para el texto */
+  height: 60px; /* Alto rectangular */
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  display: flex; /* Asegura que el contenido (span/img) se centre */
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in-out;  
+}
+
+/* Estilo para la imagen dentro del marco rectangular */
+.overlay-frame-name img {
+  width: 100%; /* Ocupa todo el ancho del marco */
+  height: 100%; /* Ocupa todo el alto del marco */
+  object-fit: contain; /* Ajusta la imagen dentro sin recortar */
+  border-radius: 8px;
+  display: block;
+}
+
+.overlay-frame-name span {
+  font-size: 1em;
+  color: #666;
+  text-align: center;
+}
+/* FIN: Estilos para el nuevo parche rectangular */
+
 
 /* --- Inputs y botones --- */
 input[type="file"] {
@@ -328,8 +373,7 @@ max-width: 400px;
 
 .modal-main-image-placeholder .patch-overlay {
   position: absolute;
-  width: 90px;
-  height: 90px;
+  /* Valores comunes para los parches */
   border-radius: 8px;
   object-fit: cover;
   border: 1px solid #333;
@@ -337,15 +381,33 @@ max-width: 400px;
   background-color: rgba(255, 255, 255, 0.7);
 }
 
+/* POSICIONAMIENTO DE LOS PARCHES CUADRADOS EN EL MODAL */
 .modal-main-image-placeholder #modal-patch-1 {
-  top: 35%;
+  width: 90px;
+  height: 90px;
+  top: 18%; /* Ajustado para mover hacia arriba */
   right: 02%;
 }
 
 .modal-main-image-placeholder #modal-patch-2 {
-  top: 38%;
+  width: 90px;
+  height: 90px;
+  top: 18%; /* Ajustado para mover hacia arriba */
   left: 02%;
 }
+
+/* NUEVA POSICIÓN DEL PARCHE RECTANGULAR EN EL MODAL */
+.modal-main-image-placeholder #modal-patch-3 {
+  top: initial;
+  bottom: 10%; /* Posiciona un 10% desde el fondo */
+  left: 50%;
+  transform: translateX(-50%); /* Centrado horizontal */
+  width: 250px; /* Ancho más grande para el texto */
+  height: 60px; /* Alto rectangular */
+  border: 1px solid #ff0000; /* Puedes usar un color diferente para el borde */
+  object-fit: contain; /* Asegura que la imagen rectangular se ajuste bien */
+}
+/* FIN: NUEVOS ESTILOS DE POSICIONAMIENTO EN EL MODAL */
 
 /* INICIO DE CAMBIOS PARA DETALLES EN DOS COLUMNAS */
 .modal-details {
