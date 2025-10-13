@@ -92,7 +92,7 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// **FUNCIÓN PARA DESCARGAR LA IMAGEN DEL MODAL**
+// **FUNCIÓN PARA DESCARGAR LA IMAGEN DEL MODAL (CORREGIDA)**
 function downloadImage() {
     // 1. Ocultar temporalmente los elementos que no deben aparecer en la imagen
     closeButton.style.display = 'none'; 
@@ -102,7 +102,9 @@ function downloadImage() {
     html2canvas(modalContent, {
         allowTaint: true, 
         useCORS: true, 
-        scale: 2 
+        scale: 4, // Aumenta la resolución
+        scrollX: 0, // Fuerza a empezar la captura en X=0
+        scrollY: 0 // Fuerza a empezar la captura en Y=0 (Solución para la compresión vertical)
     }).then(canvas => {
         // 3. Convertir el canvas a imagen JPG
         const imageURL = canvas.toDataURL('image/jpeg', 0.9);
@@ -111,8 +113,7 @@ function downloadImage() {
         const link = document.createElement('a');
         link.href = imageURL;
         
-        // ⭐ CAMBIO APLICADO: Modificación del nombre por defecto ⭐
-        // Si el campo está vacío (es decir, el textContent es "N/A"), usa los nuevos nombres por defecto.
+        // Modificación del nombre por defecto
         const namePart = modalName.textContent && modalName.textContent !== "N/A" ? modalName.textContent : 'JERSEY';
         const numberPart = modalNumber.textContent && modalNumber.textContent !== "N/A" ? modalNumber.textContent : 'CUSTOM';
         link.download = `Pedido-${namePart}-${numberPart}.jpg`;
