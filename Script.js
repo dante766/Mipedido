@@ -81,8 +81,7 @@ setupImageUpload("dorsal-image-input", "dorsal-frame", "Upload Dorsal Ref.", "do
 
 const orderModal = document.getElementById('order-modal');
 const closeButton = document.querySelector('.close-button');
-const modalContent = document.getElementById('modal-content'); 
-// **CRÍTICO: Definición del elemento a capturar**
+// **CORRECCIÓN CRÍTICA:** Seleccionamos el área de la imagen para la captura.
 const modalImageArea = document.querySelector('.modal-image-area'); 
 
 const modalMainImagePlaceholder = document.getElementById('modal-main-image-placeholder');
@@ -116,19 +115,11 @@ function downloadImage() {
     closeButton.style.display = 'none'; 
     downloadButton.style.display = 'none'; 
     
-    // **DEBUGGING: Imprimir dimensiones del área de imagen**
-    const computedStyle = window.getComputedStyle(modalImageArea);
+    // Capturar dimensiones del elemento
     const elementWidth = modalImageArea.offsetWidth;
     const elementHeight = modalImageArea.offsetHeight;
 
-    console.log("--- DEBUG html2canvas (Captura de Dorsal) ---");
-    console.log(`Elemento a capturar: .modal-image-area`);
-    console.log(`Ancho computado (offsetWidth): ${elementWidth}px`);
-    console.log(`Alto computado (offsetHeight): ${elementHeight}px`);
-    console.log(`Alto CSS (height): ${computedStyle.height}`);
-
-
-    // **CORRECCIÓN CRÍTICA:** Deshabilitar el scroll del body
+    // Deshabilitar el scroll del body temporalmente
     document.body.style.overflow = 'hidden';
 
     // 2. Usar html2canvas para capturar **SOLO el área de la imagen (modalImageArea)**
@@ -138,7 +129,7 @@ function downloadImage() {
         scale: 4, // Buena resolución
         scrollX: 0, 
         scrollY: 0,
-        // **Forzamos las dimensiones EXACTAS del contenedor de imagen**
+        // Forzamos las dimensiones EXACTAS del contenedor de imagen
         width: elementWidth,
         height: elementHeight,
     }).then(canvas => {
@@ -162,7 +153,7 @@ function downloadImage() {
         closeButton.style.display = 'block'; 
         downloadButton.style.display = 'block';
         
-        // **PASO CRÍTICO DE RESTAURACIÓN:** Restauramos el scroll del cuerpo
+        // Restauramos el scroll del cuerpo
         document.body.style.overflow = '';
     });
 }
