@@ -3,7 +3,7 @@ const imageURLs = {
   main: null,
   overlay1: null,
   overlay2: null,
-  dorsalRef: null, // MODIFICACIÓN: URL para la referencia de tipografía/dorsal
+  dorsalRef: null, // URL para la referencia de tipografía/dorsal
 };
 
 // MAPA DE URLS PARA LAS TABLAS DE AYUDA (¡CORREGIDAS A RAW.GITHUBUSERCONTENT!)
@@ -31,9 +31,7 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
         if (imgElement) imgElement.remove();
         previewElement.style.display = 'flex';
       } else {
-        // MODIFICACIÓN: Para que el marco de dorsal también se vea bien.
         previewElement.innerHTML = `<span>${defaultText}</span>`;
-        // Si es el dorsal y tiene un input asociado, lo limpiamos también
         if (imageKey === 'dorsalRef') {
            previewElement.style.display = 'flex';
         }
@@ -56,9 +54,7 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
         imgElement.src = url;
         previewElement.style.display = 'none';
       } else {
-        // MODIFICACIÓN: Si es un patch o el dorsal, se muestra la imagen
         previewElement.innerHTML = `<img src="${url}" alt="Imagen cargada">`;
-        // Aseguramos que el contenedor del dorsal/patch esté visible si se cargó la imagen.
         if (imageKey === 'dorsalRef') {
           previewElement.style.display = 'flex';
         }
@@ -78,7 +74,6 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
 setupImageUpload("main-image-input", "main-preview-content", "Subí una imagen principal", "main");
 setupImageUpload("overlay-image-input-1", "overlay-frame-1", "No Patch", "overlay1");
 setupImageUpload("overlay-image-input-2", "overlay-frame-2", "No Patch", "overlay2");
-// MODIFICACIÓN: Inicialización para la imagen de tipografía
 setupImageUpload("dorsal-image-input", "dorsal-frame", "Upload Dorsal Ref.", "dorsalRef");
 
 
@@ -86,7 +81,8 @@ setupImageUpload("dorsal-image-input", "dorsal-frame", "Upload Dorsal Ref.", "do
 
 const orderModal = document.getElementById('order-modal');
 const closeButton = document.querySelector('.close-button');
-const modalContent = document.getElementById('modal-content'); // Referencia al contenedor para la captura
+const modalContent = document.getElementById('modal-content'); // Contenedor principal del modal
+const modalImageArea = document.querySelector('.modal-image-area'); // **CRÍTICO: Contenedor de la imagen que capturaremos**
 const modalMainImagePlaceholder = document.getElementById('modal-main-image-placeholder');
 const modalSize = document.getElementById('modal-size');
 const modalVersion = document.getElementById('modal-version');
@@ -112,23 +108,37 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// **FUNCIÓN PARA DESCARGAR LA IMAGEN (CON CORRECCIONES ADICIONALES)**
+// **FUNCIÓN PARA DESCARGAR LA IMAGEN (SOLUCIÓN DORSAL/RECORTE)**
 function downloadImage() {
     // 1. Ocultar temporalmente los elementos que no deben aparecer
     closeButton.style.display = 'none'; 
     downloadButton.style.display = 'none'; 
     
-    // **NUEVO PASO CRÍTICO:** Ocultar temporalmente el scroll del cuerpo de la página
+    // **DEBUGGING: Imprimir dimensiones del área de imagen**
+    const computedStyle = window.getComputedStyle(modalImageArea);
+    const elementWidth = modalImageArea.offsetWidth;
+    const elementHeight = modalImageArea.offsetHeight;
+
+    console.log("--- DEBUG html2canvas (Captura de Dorsal) ---");
+    console.log(`Elemento a capturar: .modal-image-area`);
+    console.log(`Ancho computado (offsetWidth): ${elementWidth}px`);
+    console.log(`Alto computado (offsetHeight): ${elementHeight}px`);
+    console.log(`Alto CSS (height): ${computedStyle.height}`);
+
+
+    // **CORRECCIÓN CRÍTICA:** Deshabilitar el scroll del body
     document.body.style.overflow = 'hidden';
 
-    // 2. Usar html2canvas para capturar el elemento 'modalContent'
-    html2canvas(modalContent, {
+    // 2. Usar html2canvas para capturar **SOLO el área de la imagen (modalImageArea)**
+    html2canvas(modalImageArea, {
         allowTaint: true, 
         useCORS: true, 
-        scale: 5, // Incrementamos la escala a 5 para mayor resolución/detalle
-        // Forzamos el inicio de la captura desde el punto 0,0
+        scale: 4, // Buena resolución
         scrollX: 0, 
-        scrollY: 0 
+        scrollY: 0,
+        // **Fuerza las dimensiones EXACTAS del contenedor de imagen**
+        width: elementWidth,
+        height: elementHeight,
     }).then(canvas => {
         // 3. Convertir el canvas a imagen JPG
         const imageURL = canvas.toDataURL('image/jpeg', 0.9);
@@ -151,7 +161,7 @@ function downloadImage() {
         downloadButton.style.display = 'block';
         
         // **PASO CRÍTICO DE RESTAURACIÓN:** Restauramos el scroll del cuerpo
-        document.body.style.overflow = ''; 
+        document.body.style.overflow = '';
     });
 }
 
@@ -174,43 +184,38 @@ document.getElementById('add-item-button').addEventListener('click', () => {
 
     // Manejo de Nombre
     if (name === "") {
-        // Si el nombre está vacío, oculta el párrafo completo
         modalNameGroup.style.display = 'none';
         modalName.textContent = "N/A"; 
     } else {
-        // Si el nombre tiene contenido, muéstralo
         modalNameGroup.style.display = 'block';
         modalName.textContent = name;
     }
 
     // Manejo de Número
     if (number === "") {
-        // Si el número está vacío, oculta el párrafo completo
         modalNumberGroup.style.display = 'none';
         modalNumber.textContent = "N/A"; 
     } else {
-        // Si el número tiene contenido, muéstralo
         modalNumberGroup.style.display = 'block';
         modalNumber.textContent = number;
     }
-    // FIN LÓGICA MODIFICADA
 
 
     // 2. Manejar la visualización de la imagen
     modalMainImagePlaceholder.innerHTML = ''; // Limpia el contenido
 
     if (!imageURLs.main) {
-        // Criterio: Si la imagen principal NO está cargada
+        // Si la imagen principal NO está cargada
         modalMainImagePlaceholder.innerHTML = '<span>No Jersey Cargado</span>';
     } else {
-        // Criterio: Si la imagen principal SÍ está cargada
+        // Si la imagen principal SÍ está cargada
         const mainImg = document.createElement('img');
         mainImg.src = imageURLs.main;
         mainImg.alt = 'Jersey';
         mainImg.id = 'modal-bg-image';
         modalMainImagePlaceholder.appendChild(mainImg);
         
-        // Criterio: Si tiene cargado los cuadraditos (Patchs)
+        // Patchs
         if (imageURLs.overlay1) {
             const patch1 = document.createElement('img');
             patch1.src = imageURLs.overlay1;
@@ -229,9 +234,9 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             modalMainImagePlaceholder.appendChild(patch2);
         }
 
-        // INICIO DE MODIFICACIÓN CRÍTICA: Cargar la imagen de la tipografía (Dorsal) Y SU ETIQUETA
+        // Cargar la imagen de la tipografía (Dorsal) Y SU ETIQUETA
         if (imageURLs.dorsalRef) {
-            // 1. Crear el contenedor con la imagen del dorsal (recuadro rojo)
+            // 1. Contenedor del dorsal
             const dorsalRefContainer = document.createElement('div');
             dorsalRefContainer.className = 'dorsal-ref-overlay'; 
             
@@ -240,17 +245,14 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             dorsalRefImg.alt = 'Dorsal Reference';
             dorsalRefContainer.appendChild(dorsalRefImg);
             
-            // 2. Crear la etiqueta de texto para "Example Dorsal" (fondo negro)
-            const dorsalLabel = document.createElement('label'); // <-- CREACIÓN CRÍTICA
+            // 2. Etiqueta de texto
+            const dorsalLabel = document.createElement('label'); 
             dorsalLabel.textContent = 'Example Dorsal';
-            // CLASE NUEVA: Usamos una clase específica para el modal para darle estilo y posición
             dorsalLabel.className = 'dorsal-ref-label-modal'; 
             
-            // Lo agregamos al mismo contenedor para la captura (modalMainImagePlaceholder)
             modalMainImagePlaceholder.appendChild(dorsalRefContainer);
-            modalMainImagePlaceholder.appendChild(dorsalLabel); // <--- AGREGAR LA ETIQUETA AL DOM
+            modalMainImagePlaceholder.appendChild(dorsalLabel); 
         }
-        // FIN DE MODIFICACIÓN DORSAL
     }
 
     // 3. Mostrar el modal
@@ -280,7 +282,6 @@ function closeHelpModal() {
 // Event listeners para cerrar el modal de Ayuda
 closeHelpModalButton.addEventListener('click', closeHelpModal);
 window.addEventListener('click', (event) => {
-    // Si se hace clic fuera del modal de ayuda, cerrarlo
     if (event.target === helpModal) {
         closeHelpModal();
     }
@@ -295,12 +296,10 @@ helpButtons.forEach(button => {
         // 1. Configurar y mostrar el modal
         helpModalTitle.textContent = `Tabla de Tallas - ${version}`;
         
-        // La URL debe ser una URL de imagen directa
         if (imageUrl) {
             helpImage.src = imageUrl;
             helpImage.alt = `Tabla de Tallas Versión ${version}`;
         } else {
-            // Muestra un marcador de posición si la URL no se encuentra
             helpImage.src = '';
             helpImage.alt = 'Imagen de tabla no disponible.';
         }
