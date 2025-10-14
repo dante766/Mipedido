@@ -310,7 +310,7 @@ input[type="file"] {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; /* Lo dejamos como auto por defecto */
+  overflow: auto;
   background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
   padding-top: 60px;
 }
@@ -348,12 +348,10 @@ input[type="file"] {
 .modal-image-area {
 position: relative; 
 width: 100%; 
-/* Altura fija y grande para asegurar la captura del jersey completo */
-height: 450px; 
+/* CORRECCIÓN DE ALTURA CRÍTICA: Se define una altura fija para la captura */
+height: 450px; /* <--- MODIFICADO (Estaba en 350px) */
 margin: 0 auto 20px auto; 
 max-width: 400px;
-/* **SOLUCIÓN DORSAL CRÍTICA:** Asegura que ningún elemento posicionado cause overflow o scroll */
-overflow: hidden !important; 
 }
 
 .modal-main-image-placeholder {
@@ -412,6 +410,10 @@ overflow: hidden !important;
   border: 2px solid #ff0000; 
   z-index: 2;
   background-color: rgba(255, 255, 255, 0.9);
+  /* **CORRECCIÓN CRÍTICA: ELIMINAMOS PROPIEDADES FLEXBOX** */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
   overflow: hidden; 
 }
 
@@ -478,4 +480,36 @@ overflow: hidden !important;
     background-color: #000; 
     /* Texto Blanco */
     color: #fff; 
-    /* Espacio
+    /* Espacio interno para que el fondo se vea bien */
+    padding: 3px 6px; 
+    /* Esquinas ligeramente redondeadas */
+    border-radius: 4px; 
+    /* Permite aplicar padding y min-width */
+    display: inline-block; 
+    /* Margen para separar el fondo negro del valor */
+    margin-right: 8px; 
+    text-align: right; 
+}
+
+/* --- Estilos específicos para la IMAGEN DE AYUDA --- */
+.help-image-container {
+  max-width: 100%;
+  margin: 10px auto;
+  text-align: center;
+}
+
+#help-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid #ccc; /* Borde sutil para la imagen */
+}
+
+.warning-text {
+  color: #b30000;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+}
