@@ -173,7 +173,7 @@ body {
   text-align: center;
 }
 
-/* NUEVO: Estilo para la etiqueta debajo del dorsal */
+/* MODIFICACIÓN: Estilo para la etiqueta "Example Dorsal" debajo del dorsal (Resaltado Negro/Blanco) */
 .dorsal-container .dorsal-label {
     /* Fondo Negro para la etiqueta */
     background-color: #000; 
@@ -415,7 +415,7 @@ max-width: 400px;
   transform: translateX(-50%);
   bottom: 10px;
   width: 200px; 
-  height: 30px;  
+  height: 30px; /* MODIFICADO: Mismo alto que el frame original */
   border-radius: 8px;
   border: 2px solid #ff0000; 
   z-index: 2;
@@ -432,6 +432,24 @@ max-width: 400px;
     height: 100%;
     /* CORRECCIÓN: Estira la imagen para llenar el contenedor (adaptarse) */
     object-fit: fill;
+}
+
+/* NUEVO: Estilo para la etiqueta "Example Dorsal" en el modal */
+.dorsal-ref-label {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -15px; /* Posicionado debajo del recuadro del dorsal */
+    z-index: 2;
+    
+    /* Reutiliza el estilo de resaltado que aplicamos antes */
+    background-color: #000; 
+    color: #fff; 
+    padding: 3px 6px; 
+    border-radius: 4px; 
+    font-size: 0.8em;
+    font-weight: bold;
+    white-space: nowrap; /* Asegura que el texto no se rompa */
 }
 /* ---------------------------------------------------------- */
 
@@ -503,6 +521,3 @@ max-width: 400px;
   margin-top: 12px;
   font-size: 14px;
 }
-
-
-
