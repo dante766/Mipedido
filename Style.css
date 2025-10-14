@@ -173,19 +173,9 @@ body {
   text-align: center;
 }
 
-/* MODIFICACIÓN: Estilo para la etiqueta "Example Dorsal" debajo del dorsal (Resaltado Negro/Blanco) */
+/* NUEVO: Estilo para la etiqueta debajo del dorsal */
 .dorsal-container .dorsal-label {
-    /* Fondo Negro para la etiqueta */
-    background-color: #000; 
-    /* Texto Blanco */
-    color: #fff; 
-    /* Espacio interno para que el fondo se vea bien */
-    padding: 3px 6px; 
-    /* Esquinas ligeramente redondeadas */
-    border-radius: 4px; 
-    /* Permite aplicar padding y min-width */
-    display: inline-block; 
-    
+    color: #333;
     font-size: 0.8em;
     font-weight: bold;
     margin-top: 5px; 
@@ -358,8 +348,8 @@ input[type="file"] {
 .modal-image-area {
 position: relative; 
 width: 100%; 
-/* CORRECCIÓN DE ALTURA CRÍTICA: Aumentamos a 450px para dar espacio al dorsal */
-height: 450px; 
+/* CORRECCIÓN DE ALTURA CRÍTICA: Se define una altura fija para la captura */
+height: 450px; /* Nuevo alto fijo para mejor captura (AUMENTADO) */
 margin: 0 auto 20px auto; 
 max-width: 400px;
 }
@@ -413,9 +403,9 @@ max-width: 400px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 30px; /* POSICION AJUSTADA: Subimos el recuadro para dejar espacio a la etiqueta */
+  bottom: 30px; /* POSICION AJUSTADA: Lo subimos para dejar espacio a la etiqueta */
   width: 200px; 
-  height: 30px;  
+  height: 30px;  /* Altura del recuadro */
   border-radius: 8px;
   border: 2px solid #ff0000; 
   z-index: 2;
@@ -433,16 +423,17 @@ max-width: 400px;
     /* CORRECCIÓN: Estira la imagen para llenar el contenedor (adaptarse) */
     object-fit: fill;
 }
+/* ---------------------------------------------------------- */
 
-/* NUEVO ESTILO: Etiqueta "Example Dorsal" en el modal para asegurar la captura */
-.dorsal-ref-label {
+/* NUEVO ESTILO CRÍTICO: Etiqueta "Example Dorsal" en el modal para asegurar la captura */
+.dorsal-ref-label-modal {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 5px; /* Posicionado debajo del recuadro rojo, dentro del área de captura */
+    bottom: 5px; /* Posicionado debajo del recuadro rojo (bottom: 30px) */
     z-index: 2;
     
-    /* ESTILO DE RESALTADO */
+    /* ESTILO DE RESALTADO QUE QUEREMOS CAPTURAR */
     background-color: #000; 
     color: #fff; 
     padding: 3px 6px; 
