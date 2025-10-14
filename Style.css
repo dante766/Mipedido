@@ -415,7 +415,7 @@ max-width: 400px;
   transform: translateX(-50%);
   bottom: 10px;
   width: 200px; 
-  height: 80px;  
+  height: 30px;  
   border-radius: 8px;
   border: 2px solid #ff0000; 
   z-index: 2;
@@ -503,5 +503,6 @@ max-width: 400px;
   margin-top: 12px;
   font-size: 14px;
 }
+
 
 
