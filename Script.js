@@ -240,7 +240,7 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             
             // Lo agregamos al mismo contenedor para la captura (modalMainImagePlaceholder)
             modalMainImagePlaceholder.appendChild(dorsalRefContainer);
-            modalMainImagePlaceholder.appendChild(dorsalLabel); // Agregar la etiqueta
+            modalMainImagePlaceholder.appendChild(dorsalLabel); // <--- AGREGAR LA ETIQUETA
         }
         // FIN DE MODIFICACIÓN DORSAL
     }
