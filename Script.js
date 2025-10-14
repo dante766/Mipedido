@@ -234,9 +234,10 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             dorsalRefContainer.appendChild(dorsalRefImg);
             
             // 2. Crear la etiqueta de texto para "Example Dorsal" (fondo negro)
-            const dorsalLabel = document.createElement('label'); 
+            const dorsalLabel = document.createElement('label'); // <-- CREAMOS LA ETIQUETA
             dorsalLabel.textContent = 'Example Dorsal';
-            dorsalLabel.className = 'dorsal-ref-label'; 
+            // NOTA: Usamos una clase nueva para asegurar que html2canvas la vea
+            dorsalLabel.className = 'dorsal-ref-label-modal'; 
             
             // Lo agregamos al mismo contenedor para la captura (modalMainImagePlaceholder)
             modalMainImagePlaceholder.appendChild(dorsalRefContainer);
