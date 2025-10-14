@@ -81,8 +81,9 @@ setupImageUpload("dorsal-image-input", "dorsal-frame", "Upload Dorsal Ref.", "do
 
 const orderModal = document.getElementById('order-modal');
 const closeButton = document.querySelector('.close-button');
-// **CORRECCIÓN CRÍTICA:** Seleccionamos el área de la imagen para la captura.
-const modalImageArea = document.querySelector('.modal-image-area'); 
+
+// REFERENCIA AL CONTENIDO COMPLETO DEL MODAL PARA LA CAPTURA (¡CORREGIDO!)
+const modalContent = document.getElementById('modal-content'); 
 
 const modalMainImagePlaceholder = document.getElementById('modal-main-image-placeholder');
 const modalSize = document.getElementById('modal-size');
@@ -111,27 +112,23 @@ window.addEventListener('click', (event) => {
 
 // **FUNCIÓN PARA DESCARGAR LA IMAGEN (SOLUCIÓN DORSAL/RECORTE - VERSIÓN FINAL)**
 function downloadImage() {
+    // Referencia al contenedor completo del modal
+    const elementToCapture = document.getElementById('modal-content'); // <-- Elemento a capturar
+
     // 1. Ocultar temporalmente los elementos que no deben aparecer
     closeButton.style.display = 'none'; 
     downloadButton.style.display = 'none'; 
     
-    // Capturar dimensiones del elemento
-    const elementWidth = modalImageArea.offsetWidth;
-    const elementHeight = modalImageArea.offsetHeight;
-
     // Deshabilitar el scroll del body temporalmente
     document.body.style.overflow = 'hidden';
 
-    // 2. Usar html2canvas para capturar **SOLO el área de la imagen (modalImageArea)**
-    html2canvas(modalImageArea, {
+    // 2. Usar html2canvas para capturar **TODO el contenido del modal**
+    html2canvas(elementToCapture, { // <-- CAMBIO CLAVE: Capturar modal-content
         allowTaint: true, 
         useCORS: true, 
         scale: 4, // Buena resolución
         scrollX: 0, 
         scrollY: 0,
-        // Forzamos las dimensiones EXACTAS del contenedor de imagen
-        width: elementWidth,
-        height: elementHeight,
     }).then(canvas => {
         // 3. Convertir el canvas a imagen JPG
         const imageURL = canvas.toDataURL('image/jpeg', 0.9);
