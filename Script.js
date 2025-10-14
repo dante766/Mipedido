@@ -82,7 +82,7 @@ setupImageUpload("dorsal-image-input", "dorsal-frame", "Upload Dorsal Ref.", "do
 const orderModal = document.getElementById('order-modal');
 const closeButton = document.querySelector('.close-button');
 const modalContent = document.getElementById('modal-content'); 
-// **CRÍTICO: Definición del elemento a capturar**
+// **ELEMENTO CRÍTICO A CAPTURAR (SOLUCIÓN DORSAL)**
 const modalImageArea = document.querySelector('.modal-image-area'); 
 
 const modalMainImagePlaceholder = document.getElementById('modal-main-image-placeholder');
