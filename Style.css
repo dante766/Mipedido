@@ -134,27 +134,24 @@ body {
   left: 10px;
 }
 
-/* INICIO DE MODIFICACIÓN: Estilos para la Tipografía (Dorsal) */
+/* --- Estilos para la Tipografía (Dorsal) --- */
 .dorsal-container {
-  /* Posicionamiento para que aparezca debajo de la camiseta principal */
   position: absolute;
-  /* Centrado horizontalmente */
   left: 50%;
   transform: translateX(-50%);
-  /* Posición vertical */
   bottom: 10px; 
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  z-index: 3; /* Para que quede encima de la imagen principal */
+  z-index: 3;
 }
 
 .dorsal-frame {
-  width: 200px; /* Ancho deseado */
-  height: 50px;  /* Alto deseado */
+  width: 200px; 
+  height: 50px;  
   background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid #ff0000; /* Borde rojo como en la imagen de ejemplo */
+  border: 2px solid #ff0000;
   border-radius: 8px;
   display: flex;
   justify-content: center;
@@ -166,7 +163,8 @@ body {
 .dorsal-frame img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Asegura que la imagen no se recorte y se ajuste dentro del marco */
+  /* CORRECCIÓN: Estira la imagen para llenar el contenedor */
+  object-fit: fill; 
 }
 
 .dorsal-frame span {
@@ -175,7 +173,7 @@ body {
   font-weight: bold;
   text-align: center;
 }
-/* FIN DE MODIFICACIÓN */
+/* ------------------------------------------- */
 
 
 /* --- Inputs y botones --- */
@@ -391,25 +389,18 @@ max-width: 400px;
   left: 02%;
 }
 
-/* INICIO DE MODIFICACIÓN: Estilos para la Referencia de Tipografía en el Modal */
+/* --- Estilos para la Referencia de Tipografía en el Modal --- */
 .dorsal-ref-overlay {
   position: absolute;
-  /* Posicionamiento similar al .dorsal-container principal */
   left: 50%;
   transform: translateX(-50%);
   bottom: 10px;
-  
-  /* Tamaños del marco */
   width: 200px; 
   height: 80px;  
-  
   border-radius: 8px;
-  object-fit: contain;
-  border: 2px solid #ff0000; /* Borde rojo */
+  border: 2px solid #ff0000; 
   z-index: 2;
   background-color: rgba(255, 255, 255, 0.9);
-  
-  /* Estilos internos para que la imagen se ajuste */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -417,19 +408,18 @@ max-width: 400px;
 }
 
 .dorsal-ref-overlay img {
-    /* Sobreescribe el estilo general de img en el modal para que se ajuste */
     position: static; 
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    /* CORRECCIÓN: Estira la imagen para llenar el contenedor */
+    object-fit: fill;
 }
-/* FIN DE MODIFICACIÓN */
+/* ---------------------------------------------------------- */
 
 /* INICIO DE CAMBIOS PARA DETALLES EN DOS COLUMNAS */
 .modal-details {
   display: flex; 
   justify-content: space-between;
-  /* CORRECCIÓN: Reducción del gap y el padding para que quepa en móvil */
   gap: 15px;
   text-align: left;
   margin: 15px auto; 
@@ -469,8 +459,6 @@ max-width: 400px;
     display: inline-block; 
     /* Margen para separar el fondo negro del valor */
     margin-right: 8px; 
-    /* Se quita min-width para evitar saltos de línea */
-    /* min-width: 60px; */ 
     text-align: right; 
 }
 
@@ -496,4 +484,3 @@ max-width: 400px;
   margin-top: 12px;
   font-size: 14px;
 }
-
