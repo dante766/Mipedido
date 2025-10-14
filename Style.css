@@ -152,7 +152,7 @@ body {
 
 .dorsal-frame {
   width: 200px; /* Ancho deseado */
-  height: 80px;  /* Alto deseado */
+  height: 50px;  /* Alto deseado */
   background-color: rgba(255, 255, 255, 0.9);
   border: 2px solid #ff0000; /* Borde rojo como en la imagen de ejemplo */
   border-radius: 8px;
@@ -496,3 +496,4 @@ max-width: 400px;
   margin-top: 12px;
   font-size: 14px;
 }
+
