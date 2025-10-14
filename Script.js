@@ -112,19 +112,23 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// **FUNCIÓN PARA DESCARGAR LA IMAGEN (CON CORRECCIONES PARA html2canvas)**
+// **FUNCIÓN PARA DESCARGAR LA IMAGEN (CON CORRECCIONES ADICIONALES)**
 function downloadImage() {
-    // 1. Ocultar temporalmente los elementos que no deben aparecer en la imagen
+    // 1. Ocultar temporalmente los elementos que no deben aparecer
     closeButton.style.display = 'none'; 
     downloadButton.style.display = 'none'; 
     
+    // **NUEVO PASO CRÍTICO:** Ocultar temporalmente el scroll del cuerpo de la página
+    document.body.style.overflow = 'hidden';
+
     // 2. Usar html2canvas para capturar el elemento 'modalContent'
     html2canvas(modalContent, {
         allowTaint: true, 
         useCORS: true, 
-        scale: 4, // Aumenta la resolución
-        scrollX: 0, // Fuerza a empezar la captura en X=0
-        scrollY: 0 // Fuerza a empezar la captura en Y=0 (Solución para la compresión vertical)
+        scale: 5, // Incrementamos la escala a 5 para mayor resolución/detalle
+        // Forzamos el inicio de la captura desde el punto 0,0
+        scrollX: 0, 
+        scrollY: 0 
     }).then(canvas => {
         // 3. Convertir el canvas a imagen JPG
         const imageURL = canvas.toDataURL('image/jpeg', 0.9);
@@ -142,9 +146,12 @@ function downloadImage() {
         link.click();
         document.body.removeChild(link);
         
-        // 5. Volver a mostrar los elementos ocultos
+        // 5. Volver a mostrar los elementos ocultos y restaurar el scroll
         closeButton.style.display = 'block'; 
         downloadButton.style.display = 'block';
+        
+        // **PASO CRÍTICO DE RESTAURACIÓN:** Restauramos el scroll del cuerpo
+        document.body.style.overflow = ''; 
     });
 }
 
