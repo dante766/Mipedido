@@ -3,6 +3,7 @@ const imageURLs = {
   main: null,
   overlay1: null,
   overlay2: null,
+  dorsalRef: null, // MODIFICACIÓN: URL para la referencia de tipografía/dorsal
 };
 
 // MAPA DE URLS PARA LAS TABLAS DE AYUDA (¡CORREGIDAS A RAW.GITHUBUSERCONTENT!)
@@ -30,7 +31,12 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
         if (imgElement) imgElement.remove();
         previewElement.style.display = 'flex';
       } else {
+        // MODIFICACIÓN: Para que el marco de dorsal también se vea bien.
         previewElement.innerHTML = `<span>${defaultText}</span>`;
+        // Si es el dorsal y tiene un input asociado, lo limpiamos también
+        if (imageKey === 'dorsalRef') {
+           previewElement.style.display = 'flex';
+        }
       }
       return;
     }
@@ -50,7 +56,12 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
         imgElement.src = url;
         previewElement.style.display = 'none';
       } else {
+        // MODIFICACIÓN: Si es un patch o el dorsal, se muestra la imagen
         previewElement.innerHTML = `<img src="${url}" alt="Imagen cargada">`;
+        // Aseguramos que el contenedor del dorsal/patch esté visible si se cargó la imagen.
+        if (imageKey === 'dorsalRef') {
+          previewElement.style.display = 'flex';
+        }
       }
     };
     reader.readAsDataURL(file);
@@ -67,6 +78,8 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
 setupImageUpload("main-image-input", "main-preview-content", "Subí una imagen principal", "main");
 setupImageUpload("overlay-image-input-1", "overlay-frame-1", "No Patch", "overlay1");
 setupImageUpload("overlay-image-input-2", "overlay-frame-2", "No Patch", "overlay2");
+// MODIFICACIÓN: Inicialización para la imagen de tipografía
+setupImageUpload("dorsal-image-input", "dorsal-frame", "Upload Dorsal Ref.", "dorsalRef");
 
 
 // --- Lógica del Modal de Pedido (Pop-up) ---
@@ -208,6 +221,22 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             patch2.id = 'modal-patch-2';
             modalMainImagePlaceholder.appendChild(patch2);
         }
+
+        // INICIO DE MODIFICACIÓN: Cargar la imagen de la tipografía (Dorsal)
+        if (imageURLs.dorsalRef) {
+            // Creamos un contenedor con posición y tamaño similar al original
+            const dorsalRefContainer = document.createElement('div');
+            dorsalRefContainer.className = 'dorsal-ref-overlay'; 
+            
+            const dorsalRefImg = document.createElement('img');
+            dorsalRefImg.src = imageURLs.dorsalRef;
+            dorsalRefImg.alt = 'Dorsal Reference';
+            dorsalRefContainer.appendChild(dorsalRefImg);
+            
+            // Lo agregamos al mismo contenedor para la captura (modalMainImagePlaceholder)
+            modalMainImagePlaceholder.appendChild(dorsalRefContainer);
+        }
+        // FIN DE MODIFICACIÓN DORSAL
     }
 
     // 3. Mostrar el modal
