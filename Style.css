@@ -358,8 +358,8 @@ input[type="file"] {
 .modal-image-area {
 position: relative; 
 width: 100%; 
-/* CORRECCIÓN DE ALTURA CRÍTICA: Se define una altura fija para la captura */
-height: 450px; /* <--- MODIFICADO: Aumentamos el espacio vertical */
+/* CORRECCIÓN DE ALTURA CRÍTICA: Aumentamos a 450px para dar espacio al dorsal */
+height: 450px; 
 margin: 0 auto 20px auto; 
 max-width: 400px;
 }
@@ -413,7 +413,7 @@ max-width: 400px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 30px; /* <--- MODIFICADO: Subimos el recuadro para dar espacio al texto */
+  bottom: 30px; /* POSICION AJUSTADA: Subimos el recuadro para dejar espacio a la etiqueta */
   width: 200px; 
   height: 30px;  
   border-radius: 8px;
@@ -434,12 +434,12 @@ max-width: 400px;
     object-fit: fill;
 }
 
-/* NUEVO: Estilo para la etiqueta "Example Dorsal" en el modal */
+/* NUEVO ESTILO: Etiqueta "Example Dorsal" en el modal para asegurar la captura */
 .dorsal-ref-label {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 5px; /* <--- MODIFICADO: Lo posicionamos más arriba, dentro del nuevo espacio */
+    bottom: 5px; /* Posicionado debajo del recuadro rojo, dentro del área de captura */
     z-index: 2;
     
     /* ESTILO DE RESALTADO */
@@ -449,7 +449,7 @@ max-width: 400px;
     border-radius: 4px; 
     font-size: 0.8em;
     font-weight: bold;
-    white-space: nowrap; /* Asegura que el texto no se rompa */
+    white-space: nowrap; 
 }
 /* ---------------------------------------------------------- */
 
