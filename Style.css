@@ -359,7 +359,7 @@ input[type="file"] {
 position: relative; 
 width: 100%; 
 /* CORRECCIÓN DE ALTURA CRÍTICA: Se define una altura fija para la captura */
-height: 350px; /* Nuevo alto fijo para mejor captura */
+height: 450px; /* <--- MODIFICADO: Aumentamos el espacio vertical */
 margin: 0 auto 20px auto; 
 max-width: 400px;
 }
@@ -413,9 +413,9 @@ max-width: 400px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 10px;
+  bottom: 30px; /* <--- MODIFICADO: Subimos el recuadro para dar espacio al texto */
   width: 200px; 
-  height: 30px; /* MODIFICADO: Mismo alto que el frame original */
+  height: 30px;  
   border-radius: 8px;
   border: 2px solid #ff0000; 
   z-index: 2;
@@ -439,10 +439,10 @@ max-width: 400px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -15px; /* Posicionado debajo del recuadro del dorsal */
+    bottom: 5px; /* <--- MODIFICADO: Lo posicionamos más arriba, dentro del nuevo espacio */
     z-index: 2;
     
-    /* Reutiliza el estilo de resaltado que aplicamos antes */
+    /* ESTILO DE RESALTADO */
     background-color: #000; 
     color: #fff; 
     padding: 3px 6px; 
