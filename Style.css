@@ -349,7 +349,7 @@ input[type="file"] {
 position: relative; 
 width: 100%; 
 /* CORRECCIÓN DE ALTURA CRÍTICA: Se define una altura fija para la captura */
-height: 450px; /* <--- MODIFICADO (Estaba en 350px) */
+height: 450px; /* <--- CRÍTICO: Mantener este valor */
 margin: 0 auto 20px auto; 
 max-width: 400px;
 }
