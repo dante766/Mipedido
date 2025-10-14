@@ -175,7 +175,17 @@ body {
 
 /* NUEVO: Estilo para la etiqueta debajo del dorsal */
 .dorsal-container .dorsal-label {
-    color: #333;
+    /* Fondo Negro para la etiqueta */
+    background-color: #000; 
+    /* Texto Blanco */
+    color: #fff; 
+    /* Espacio interno para que el fondo se vea bien */
+    padding: 3px 6px; 
+    /* Esquinas ligeramente redondeadas */
+    border-radius: 4px; 
+    /* Permite aplicar padding y min-width */
+    display: inline-block; 
+    
     font-size: 0.8em;
     font-weight: bold;
     margin-top: 5px; 
@@ -493,4 +503,5 @@ max-width: 400px;
   margin-top: 12px;
   font-size: 14px;
 }
+
 
