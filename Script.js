@@ -224,7 +224,7 @@ document.getElementById('add-item-button').addEventListener('click', () => {
 
         // INICIO DE MODIFICACIÓN: Cargar la imagen de la tipografía (Dorsal)
         if (imageURLs.dorsalRef) {
-            // Creamos un contenedor con posición y tamaño similar al original
+            // 1. Crear el contenedor con la imagen del dorsal
             const dorsalRefContainer = document.createElement('div');
             dorsalRefContainer.className = 'dorsal-ref-overlay'; 
             
@@ -233,8 +233,14 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             dorsalRefImg.alt = 'Dorsal Reference';
             dorsalRefContainer.appendChild(dorsalRefImg);
             
+            // 2. Crear la etiqueta de texto para "Example Dorsal"
+            const dorsalLabel = document.createElement('label');
+            dorsalLabel.textContent = 'Example Dorsal';
+            dorsalLabel.className = 'dorsal-ref-label'; // Nueva clase para darle el estilo
+            
             // Lo agregamos al mismo contenedor para la captura (modalMainImagePlaceholder)
             modalMainImagePlaceholder.appendChild(dorsalRefContainer);
+            modalMainImagePlaceholder.appendChild(dorsalLabel); // Agregar la etiqueta
         }
         // FIN DE MODIFICACIÓN DORSAL
     }
