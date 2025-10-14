@@ -310,7 +310,7 @@ input[type="file"] {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  overflow: auto; /* Lo dejamos como auto por defecto */
   background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
   padding-top: 60px;
 }
@@ -349,9 +349,11 @@ input[type="file"] {
 position: relative; 
 width: 100%; 
 /* CORRECCIÓN DE ALTURA CRÍTICA: Se define una altura fija para la captura */
-height: 450px; /* <--- CRÍTICO: Mantener este valor */
+height: 450px; /* <--- CRÍTICO: Mantenemos la altura grande */
 margin: 0 auto 20px auto; 
 max-width: 400px;
+/* **SOLUCIÓN DORSAL CRÍTICA:** Asegura que ningún elemento posicionado cause overflow o scroll */
+overflow: hidden !important; 
 }
 
 .modal-main-image-placeholder {
@@ -410,10 +412,6 @@ max-width: 400px;
   border: 2px solid #ff0000; 
   z-index: 2;
   background-color: rgba(255, 255, 255, 0.9);
-  /* **CORRECCIÓN CRÍTICA: ELIMINAMOS PROPIEDADES FLEXBOX** */
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
   overflow: hidden; 
 }
 
