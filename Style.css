@@ -410,11 +410,12 @@ max-width: 400px;
   border: 2px solid #ff0000; 
   z-index: 2;
   background-color: rgba(255, 255, 255, 0.9);
-  /* **CORRECCIÓN CRÍTICA: ELIMINAMOS PROPIEDADES FLEXBOX** */
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  overflow: hidden; 
+  
+  /* CAMBIOS CRUCIALES PARA CENTRADO Y CAPTURA */
+  display: flex; /* Habilita Flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  overflow: visible; /* <-- ¡CRÍTICO! Cambiado de hidden a visible para evitar recorte en html2canvas */
 }
 
 .dorsal-ref-overlay img {
@@ -513,5 +514,6 @@ max-width: 400px;
   margin-top: 12px;
   font-size: 14px;
 }
+
 
 
