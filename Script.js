@@ -222,9 +222,9 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             modalMainImagePlaceholder.appendChild(patch2);
         }
 
-        // INICIO DE MODIFICACIÓN: Cargar la imagen de la tipografía (Dorsal)
+        // INICIO DE MODIFICACIÓN CRÍTICA: Cargar la imagen de la tipografía (Dorsal) Y SU ETIQUETA
         if (imageURLs.dorsalRef) {
-            // 1. Crear el contenedor con la imagen del dorsal
+            // 1. Crear el contenedor con la imagen del dorsal (recuadro rojo)
             const dorsalRefContainer = document.createElement('div');
             dorsalRefContainer.className = 'dorsal-ref-overlay'; 
             
@@ -233,10 +233,10 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             dorsalRefImg.alt = 'Dorsal Reference';
             dorsalRefContainer.appendChild(dorsalRefImg);
             
-            // 2. Crear la etiqueta de texto para "Example Dorsal"
-            const dorsalLabel = document.createElement('label');
+            // 2. Crear la etiqueta de texto para "Example Dorsal" (fondo negro)
+            const dorsalLabel = document.createElement('label'); 
             dorsalLabel.textContent = 'Example Dorsal';
-            dorsalLabel.className = 'dorsal-ref-label'; // Nueva clase para darle el estilo
+            dorsalLabel.className = 'dorsal-ref-label'; 
             
             // Lo agregamos al mismo contenedor para la captura (modalMainImagePlaceholder)
             modalMainImagePlaceholder.appendChild(dorsalRefContainer);
