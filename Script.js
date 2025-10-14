@@ -237,7 +237,7 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             
             // 2. Etiqueta de texto
             const dorsalLabel = document.createElement('label'); 
-            dorsalLabel.textContent = 'Example Dorsal';
+            dorsalLabel.textContent = 'FONT EXAMPLE';
             dorsalLabel.className = 'dorsal-ref-label-modal'; 
             
             modalMainImagePlaceholder.appendChild(dorsalRefContainer);
@@ -297,3 +297,4 @@ helpButtons.forEach(button => {
         helpModal.style.display = 'block';
     });
 });
+
