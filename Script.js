@@ -81,8 +81,10 @@ setupImageUpload("dorsal-image-input", "dorsal-frame", "Upload Dorsal Ref.", "do
 
 const orderModal = document.getElementById('order-modal');
 const closeButton = document.querySelector('.close-button');
-const modalContent = document.getElementById('modal-content'); // Contenedor principal del modal
-const modalImageArea = document.querySelector('.modal-image-area'); // **CRÍTICO: Contenedor de la imagen que capturaremos**
+const modalContent = document.getElementById('modal-content'); 
+// **CRÍTICO: Definición del elemento a capturar**
+const modalImageArea = document.querySelector('.modal-image-area'); 
+
 const modalMainImagePlaceholder = document.getElementById('modal-main-image-placeholder');
 const modalSize = document.getElementById('modal-size');
 const modalVersion = document.getElementById('modal-version');
@@ -108,7 +110,7 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// **FUNCIÓN PARA DESCARGAR LA IMAGEN (SOLUCIÓN DORSAL/RECORTE)**
+// **FUNCIÓN PARA DESCARGAR LA IMAGEN (SOLUCIÓN DORSAL/RECORTE - VERSIÓN FINAL)**
 function downloadImage() {
     // 1. Ocultar temporalmente los elementos que no deben aparecer
     closeButton.style.display = 'none'; 
@@ -136,7 +138,7 @@ function downloadImage() {
         scale: 4, // Buena resolución
         scrollX: 0, 
         scrollY: 0,
-        // **Fuerza las dimensiones EXACTAS del contenedor de imagen**
+        // **Forzamos las dimensiones EXACTAS del contenedor de imagen**
         width: elementWidth,
         height: elementHeight,
     }).then(canvas => {
