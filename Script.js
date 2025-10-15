@@ -298,3 +298,12 @@ helpButtons.forEach(button => {
     });
 });
 
+// --- Lógica para forzar mayúsculas en el campo de Nombre (Name) ---
+const nameInput = document.getElementById('name-input');
+
+if (nameInput) {
+    nameInput.addEventListener('input', function() {
+        // Convierte el valor actual del input a mayúsculas
+        this.value = this.value.toUpperCase();
+    });
+}
