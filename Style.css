@@ -38,35 +38,8 @@ body {
   gap: 05px;
 }
 
-/* NUEVO: Wrapper para los dos botones de Upload */
-.upload-buttons-wrapper {
-    display: flex;
-    justify-content: space-between;
-    width: 815px; /* 400px + 400px + 15px de gap */
-    margin-bottom: 10px;
-}
-
-/* --- NUEVOS ESTILOS PARA ALINEACIÓN HORIZONTAL --- */
-.upload-area-wrapper {
-  display: flex;
-  gap: 15px; /* Espacio entre las dos áreas */
-  /* Ancho total: 400px + 400px + 15px = 815px (Aproximadamente) */
-  margin-bottom: 20px;
-  margin-top: 10px;
-}
-
-.upload-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px; /* Espacio entre el botón y el área de imagen */
-}
-/* ----------------------------------------------- */
-
-
-/* --- Área de carga principal y Dorso --- */
-.main-upload-area,
-.back-upload-area { /* Aplicado a ambas áreas de 400x400 */
+/* --- Área de carga principal --- */
+.main-upload-area {
   position: relative;
   width: 400px;
   height: 400px;
@@ -79,8 +52,7 @@ body {
   overflow: hidden;
 }
 
-.main-upload-area .image-frame-content,
-.back-upload-area .image-frame-content {
+.main-upload-area .image-frame-content {
   width: 100%;
   height: 100%;
   display: flex;
@@ -91,7 +63,6 @@ body {
   z-index: 2;
 }
 
-/* Imagen de fondo del área principal */
 .main-upload-area img {
   max-width: 100%;
   max-height: 100%;
@@ -101,23 +72,9 @@ body {
   width: 100%;
   height: 100%;
   z-index: 1;
-  position: absolute; /* Asegura que esté detrás de los parches */
 }
 
-/* Imagen de fondo del área del dorso */
-.back-upload-area img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  position: absolute;
-}
-
-/* --- Cuadros de patches (Solo en el área principal) --- */
+/* --- Cuadros de patches --- */
 .overlay-container {
   position: absolute;
   display: flex;
@@ -176,13 +133,63 @@ body {
   left: 10px;
 }
 
+/* --- Estilos para la Tipografía (Dorsal) --- */
+.dorsal-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  z-index: 3;
+}
+
+.dorsal-frame {
+  width: 200px; 
+  height: 30px;  /* Altura configurada por el usuario */
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid #ff0000;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; 
+  cursor: pointer;
+}
+
+.dorsal-frame img {
+  width: 100%;
+  height: 100%;
+  /* CORRECCIÓN: Estira la imagen para llenar el contenedor (adaptarse) */
+  object-fit: fill; 
+}
+
+.dorsal-frame span {
+  font-size: 0.9em;
+  color: #a30000;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* NUEVO: Estilo para la etiqueta debajo del dorsal */
+.dorsal-container .dorsal-label {
+    color: #333;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-top: 5px; 
+}
+/* ------------------------------------------- */
+
 
 /* --- Inputs y botones --- */
 input[type="file"] {
   display: none;
 }
 
-/* Este estilo ahora es para todos los botones de subir archivo */
+/* Este estilo ahora es solo para los botones de subir patchs */
+/* Los labels del dorsal usan .dorsal-label o se estilizan por defecto */
 .custom-file-upload {
   display: inline-block;
   padding: 5px 10px;
@@ -190,21 +197,26 @@ input[type="file"] {
   background-color: #007bff;
   color: white;
   border-radius: 5px;
-  font-size: 0.9em; /* Aumentado ligeramente para los botones de Front/Back */
+  font-size: 0.75em;
   transition: background-color 0.2s;
   text-align: center;
-  /* Añadido para que los botones de Front/Back se vean mejor */
-  flex-grow: 1; 
 }
 
 .custom-file-upload:hover {
   background-color: #0056b3;
 }
 
+.controls-container {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 
 /* --- Contenedor de Botones de Ayuda --- */
 .help-buttons-container {
-  width: 815px; /* Ajustado al ancho del wrapper de imágenes */
+  width: 400px;
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -227,8 +239,7 @@ input[type="file"] {
 
 /* --- Detalles del pedido --- */
 .order-details-container {
-  /* CAMBIADO: Ancho de 815px para que se alinee con las imágenes */
-  width: 815px; 
+  width: 400px;
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -309,8 +320,8 @@ input[type="file"] {
   margin: 5% auto; /* 5% superior, centrado horizontalmente */
   padding: 20px;
   border: 1px solid #888;
-  /* CAMBIO: Aumentamos el ancho máximo para acomodar dos imágenes */
-  max-width: 900px; 
+  width: 80%; /* Podrías ajustar esto */
+  max-width: 500px;
   border-radius: 10px;
   text-align: center;
   position: relative;
@@ -334,68 +345,39 @@ input[type="file"] {
   cursor: pointer;
 }
 
-
-/* --- CONTENEDOR DE IMAGENES AJUSTADO PARA DOS --- */
 .modal-image-area {
-  position: relative; 
-  width: 100%; 
-  height: auto; 
-  min-height: 250px; 
-  margin: 0 auto 20px auto; 
-  max-width: 850px; 
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  padding: 10px 0; 
+position: relative; 
+width: 100%; 
+/* CORRECCIÓN DE ALTURA CRÍTICA: Se define una altura fija para la captura */
+height: 480px; /* <--- MODIFICADO (Estaba en 350px) */
+margin: 0 auto 20px auto; 
+max-width: 400px;
 }
 
-/* Contenedor flexbox para alinear ambas imágenes */
-#modal-dual-image-container {
-    display: flex; 
-    gap: 15px; 
-    justify-content: center; 
-    flex-wrap: wrap; 
-    width: 100%; 
-    max-width: 815px; 
-    position: relative; 
-    min-height: 400px; 
+.modal-main-image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #e0e0e0;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-/* Wrapper individual para cada imagen o placeholder en el modal */
-.modal-image-wrapper {
-    position: relative;
-    width: 400px; 
-    height: 400px; 
-    background-color: #e0e0e0;
-    border: 2px dashed #bbb;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    flex-shrink: 0; 
-}
-
-/* Reajusta el span de "No Jersey Cargado" */
-.modal-image-area .modal-image-wrapper span {
-  font-size: 1.2em;
-  color: #888;
-  text-align: center;
-  z-index: 5; 
-}
-
-/* Reajusta los estilos de las imágenes dentro de los wrappers */
-.modal-image-wrapper img {
-  position: absolute; 
+.modal-main-image-placeholder img {
+  position: absolute;
   width: 100%;
   height: 100%;
   object-fit: contain;
   z-index: 1;
 }
 
-/* Posicionamiento de Patches y Dorsal DENTRO del .modal-image-wrapper */
-.modal-image-wrapper .patch-overlay {
+.modal-main-image-placeholder .patch-overlay {
   position: absolute;
   width: 90px;
   height: 90px;
@@ -406,15 +388,90 @@ input[type="file"] {
   background-color: rgba(255, 255, 255, 0.7);
 }
 
-.modal-image-wrapper #modal-patch-1 {
+.modal-main-image-placeholder #modal-patch-1 {
   top: 35%;
-  right: 2%;
+  right: 02%;
 }
 
-.modal-image-wrapper #modal-patch-2 {
+.modal-main-image-placeholder #modal-patch-2 {
   top: 38%;
-  left: 2%;
+  left: 02%;
 }
+
+/* --- Estilos para la Referencia de Tipografía en el Modal --- */
+.dorsal-ref-overlay {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 30px; /* POSICION AJUSTADA: Lo subimos para dejar espacio a la etiqueta de texto */
+  width: 200px; 
+  height: 30px;  /* Altura más compacta para el recuadro */
+  border-radius: 8px;
+  border: 2px solid #ff0000; 
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.9);
+  
+  /* CAMBIOS CRUCIALES PARA CENTRADO Y CAPTURA */
+  display: flex; /* Habilita Flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  overflow: visible; /* <-- ¡CRÍTICO! Cambiado de hidden a visible para evitar recorte en html2canvas */
+}
+
+.dorsal-ref-overlay img {
+    position: static; 
+    width: 100%;
+    height: 100%;
+    /* CORRECCIÓN CRÍTICA: Estira la imagen para llenar el contenedor sin dejar espacios */
+    object-fit: fill; 
+}
+/* ---------------------------------------------------------- */
+
+/* NUEVO ESTILO CRÍTICO: Etiqueta "Example Dorsal" en el modal para asegurar la captura */
+.dorsal-ref-label-modal {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 5px; /* Posicionado debajo del recuadro rojo (bottom: 30px) */
+    z-index: 2;
+    
+    /* ESTILO DE RESALTADO QUE QUEREMOS CAPTURAR */
+    background-color: #000; 
+    color: #fff; 
+    padding: 3px 6px; 
+    border-radius: 4px; 
+    font-size: 0.8em;
+    font-weight: bold;
+    white-space: nowrap; 
+}
+
+/* === NUEVO ESTILO: Etiqueta de Patch en el Modal === */
+.patch-label-modal {
+    position: absolute;
+    z-index: 3; /* Encima de todo */
+    
+    /* ESTILO DE RESALTADO */
+    background-color: black; 
+    color: white; 
+    padding: 3px 6px; 
+    border-radius: 4px; 
+    font-size: 0.85em;
+    font-weight: bold;
+    white-space: nowrap; 
+}
+
+/* Posición específica para PATCH 1 (Left) */
+#modal-patch-label-1 {
+    top: 55%; /* Alineado con el parche */
+    left: 0%; /* Posicionado a la izquierda */
+}
+
+/* Posición específica para PATCH 2 (Right) */
+#modal-patch-label-2 {
+    top: 55%; /* Alineado con el parche */
+    right: 0%; /* Posicionado a la derecha */
+}
+/* ================================================= */
 
 /* INICIO DE CAMBIOS PARA DETALLES EN DOS COLUMNAS */
 .modal-details {
@@ -423,7 +480,7 @@ input[type="file"] {
   gap: 15px;
   text-align: left;
   margin: 15px auto; 
-  padding: 0 5px; 
+  padding: 0 5px; /* Muy reducido para móvil */
   max-width: 450px;
 }
 
@@ -435,6 +492,7 @@ input[type="file"] {
 .modal-details p {
   margin: 5px 0;
   font-size: 1.1em;
+  /* CORRECCIÓN CLAVE: Fuerza al label y al valor a permanecer en la misma línea */
   white-space: nowrap; 
 }
 /* FIN DE CAMBIOS PARA DETALLES EN DOS COLUMNAS */
@@ -476,24 +534,10 @@ input[type="file"] {
   border: 1px solid #ccc; /* Borde sutil para la imagen */
 }
 
-
-/* === NUEVOS ESTILOS PARA LOS TÍTULOS EN EL MODAL === */
-.modal-image-title {
-    position: absolute;
-    /* Centrado horizontalmente dentro de su contenedor (modal-image-wrapper) */
-    left: 50%; 
-    transform: translateX(-50%);
-    
-    top: 15px; /* Ajuste para que no esté pegado al borde */
-    z-index: 5; /* Asegura que esté por encima de la imagen y otros overlays */
-
-    /* Estilos de fondo y texto */
-    background-color: black;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 1.1em;
-    font-weight: bold;
-    white-space: nowrap;
+.warning-text {
+  color: #b30000;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
 }
-/* ================================================= */
