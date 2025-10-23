@@ -218,6 +218,14 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             mainImageWrapper.className = 'modal-image-wrapper'; 
             mainImageWrapper.id = 'modal-front-wrapper';
 
+            // *** NUEVA ETIQUETA: EXAMPLE FRONT ***
+            const frontLabel = document.createElement('span');
+            frontLabel.textContent = 'EXAMPLE FRONT';
+            frontLabel.className = 'image-label';
+            frontLabel.id = 'front-label';
+            mainImageWrapper.appendChild(frontLabel);
+            // ************************************
+
             const mainImg = document.createElement('img');
             mainImg.src = imageURLs.main;
             mainImg.alt = 'Jersey Principal';
@@ -232,6 +240,14 @@ document.getElementById('add-item-button').addEventListener('click', () => {
                 patch1.className = 'patch-overlay';
                 patch1.id = 'modal-patch-1';
                 mainImageWrapper.appendChild(patch1);
+                
+                // *** NUEVA ETIQUETA: PATCH 2 (Solo si overlay1 está cargado) ***
+                const patchLabel1 = document.createElement('span');
+                patchLabel1.textContent = 'PATCH 2';
+                patchLabel1.className = 'image-label';
+                patchLabel1.id = 'patch-1-label';
+                mainImageWrapper.appendChild(patchLabel1);
+                // *************************************************************
             }
             if (imageURLs.overlay2) {
                 const patch2 = document.createElement('img');
@@ -240,6 +256,14 @@ document.getElementById('add-item-button').addEventListener('click', () => {
                 patch2.className = 'patch-overlay';
                 patch2.id = 'modal-patch-2';
                 mainImageWrapper.appendChild(patch2);
+
+                // *** NUEVA ETIQUETA: PATCH 1 (Solo si overlay2 está cargado) ***
+                const patchLabel2 = document.createElement('span');
+                patchLabel2.textContent = 'PATCH 1';
+                patchLabel2.className = 'image-label';
+                patchLabel2.id = 'patch-2-label';
+                mainImageWrapper.appendChild(patchLabel2);
+                // *************************************************************
             }
 
             // ELIMINADA LA LÓGICA DEL DORSAL DE REFERENCIA
@@ -249,7 +273,17 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             // Placeholder si no hay imagen principal
             const noMainPlaceholder = document.createElement('div');
             noMainPlaceholder.className = 'modal-image-wrapper no-image-placeholder';
-            noMainPlaceholder.innerHTML = '<span>No Front Jersey</span>';
+            // Agrega la etiqueta frontal incluso al placeholder
+            const frontLabel = document.createElement('span');
+            frontLabel.textContent = 'EXAMPLE FRONT';
+            frontLabel.className = 'image-label';
+            frontLabel.id = 'front-label';
+            noMainPlaceholder.appendChild(frontLabel);
+            // Mensaje de No Jersey
+            const noJerseyText = document.createElement('span');
+            noJerseyText.textContent = 'No Front Jersey';
+            noMainPlaceholder.appendChild(noJerseyText);
+            
             dualImageContainer.appendChild(noMainPlaceholder);
         }
 
@@ -258,6 +292,14 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             const backImageWrapper = document.createElement('div');
             backImageWrapper.className = 'modal-image-wrapper';
             backImageWrapper.id = 'modal-back-wrapper';
+
+            // *** NUEVA ETIQUETA: EXAMPLE BACK ***
+            const backLabel = document.createElement('span');
+            backLabel.textContent = 'EXAMPLE BACK';
+            backLabel.className = 'image-label';
+            backLabel.id = 'back-label';
+            backImageWrapper.appendChild(backLabel);
+            // **********************************
 
             const backImg = document.createElement('img');
             backImg.src = imageURLs.back;
@@ -269,7 +311,17 @@ document.getElementById('add-item-button').addEventListener('click', () => {
             // Placeholder si no hay imagen del dorso
             const noBackPlaceholder = document.createElement('div');
             noBackPlaceholder.className = 'modal-image-wrapper no-image-placeholder';
-            noBackPlaceholder.innerHTML = '<span>No Back Jersey</span>';
+            // Agrega la etiqueta posterior incluso al placeholder
+            const backLabel = document.createElement('span');
+            backLabel.textContent = 'EXAMPLE BACK';
+            backLabel.className = 'image-label';
+            backLabel.id = 'back-label';
+            noBackPlaceholder.appendChild(backLabel);
+            // Mensaje de No Jersey
+            const noJerseyText = document.createElement('span');
+            noJerseyText.textContent = 'No Back Jersey';
+            noBackPlaceholder.appendChild(noJerseyText);
+            
             dualImageContainer.appendChild(noBackPlaceholder);
         }
     }
