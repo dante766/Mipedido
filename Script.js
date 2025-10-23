@@ -1,9 +1,9 @@
 // Variable global para almacenar las URLs de las imágenes
 const imageURLs = {
   main: null,
-  back: null, // URL para la imagen del dorso
   overlay1: null,
   overlay2: null,
+  dorsalRef: null, // URL para la referencia de tipografía/dorsal
 };
 
 // MAPA DE URLS PARA LAS TABLAS DE AYUDA (¡CORREGIDAS A RAW.GITHUBUSERCONTENT!)
@@ -17,14 +17,8 @@ const helpImageMap = {
 function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
   const input = document.getElementById(inputId);
   const previewElement = document.getElementById(previewElementId);
-  
-  // Modificación para manejar main y back
-  const isMainOrBackImage = (previewElementId === "main-preview-content" || previewElementId === "back-preview-content");
-  
-  // Determina el ID del contenedor padre para main/back
-  const uploadAreaId = imageKey === 'main' ? 'main-upload-area' : 'back-upload-area';
-  // Solo se obtiene si existe (para main/back)
-  const uploadArea = document.getElementById(uploadAreaId); 
+  const mainUploadArea = document.getElementById('main-upload-area');
+  const isMainImage = (previewElementId === "main-preview-content");
 
   input.addEventListener("change", (event) => {
     const file = event.target.files[0];
@@ -32,14 +26,15 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
     if (!file) {
       // Si se cancela la selección, limpiamos la URL
       imageURLs[imageKey] = null; 
-      if (isMainOrBackImage) {
-        // Genera el ID de la imagen: 'main-bg-image' o 'back-bg-image'
-        const imgId = imageKey === 'main' ? 'main-bg-image' : 'back-bg-image'; 
-        const imgElement = document.getElementById(imgId);
+      if (isMainImage) {
+        const imgElement = document.getElementById('main-bg-image');
         if (imgElement) imgElement.remove();
         previewElement.style.display = 'flex';
       } else {
         previewElement.innerHTML = `<span>${defaultText}</span>`;
+        if (imageKey === 'dorsalRef') {
+           previewElement.style.display = 'flex';
+        }
       }
       return;
     }
@@ -49,38 +44,37 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
       const url = e.target.result;
       imageURLs[imageKey] = url; // Guarda la URL
 
-      if (isMainOrBackImage) {
-        // Genera el ID de la imagen: 'main-bg-image' o 'back-bg-image'
-        const imgId = imageKey === 'main' ? 'main-bg-image' : 'back-bg-image'; 
-
-        let imgElement = document.getElementById(imgId);
+      if (isMainImage) {
+        let imgElement = document.getElementById('main-bg-image');
         if (!imgElement) {
           imgElement = document.createElement('img');
-          imgElement.id = imgId;
-          // Solo si existe el área, lo agregamos.
-          if(uploadArea) uploadArea.prepend(imgElement); 
+          imgElement.id = 'main-bg-image';
+          mainUploadArea.prepend(imgElement);
         }
         imgElement.src = url;
         previewElement.style.display = 'none';
       } else {
         previewElement.innerHTML = `<img src="${url}" alt="Imagen cargada">`;
+        if (imageKey === 'dorsalRef') {
+          previewElement.style.display = 'flex';
+        }
       }
     };
     reader.readAsDataURL(file);
   });
 
-  if (!isMainOrBackImage) {
+  if (!isMainImage) {
     previewElement.addEventListener('click', () => {
       input.click();
     });
   }
 }
 
-// Inicialización de la subida de imágenes
-setupImageUpload("main-image-input", "main-preview-content", "Upload Jersey Front", "main"); 
-setupImageUpload("back-image-input", "back-preview-content", "Upload Jersey Back", "back"); 
+// Inicialización de la subida de imágenes, ahora con claves para el objeto imageURLs
+setupImageUpload("main-image-input", "main-preview-content", "Subí una imagen principal", "main");
 setupImageUpload("overlay-image-input-1", "overlay-frame-1", "No Patch", "overlay1");
 setupImageUpload("overlay-image-input-2", "overlay-frame-2", "No Patch", "overlay2");
+setupImageUpload("dorsal-image-input", "dorsal-frame", "Upload Dorsal Ref.", "dorsalRef");
 
 
 // --- Lógica del Modal de Pedido (Pop-up) ---
@@ -90,8 +84,8 @@ const closeButton = document.querySelector('.close-button');
 
 // REFERENCIA AL CONTENIDO COMPLETO DEL MODAL PARA LA CAPTURA (¡CORREGIDO!)
 const modalContent = document.getElementById('modal-content'); 
-const modalImageArea = document.querySelector('.modal-image-area');
 
+const modalMainImagePlaceholder = document.getElementById('modal-main-image-placeholder');
 const modalSize = document.getElementById('modal-size');
 const modalVersion = document.getElementById('modal-version');
 const modalName = document.getElementById('modal-name');
@@ -106,8 +100,6 @@ const downloadButton = document.querySelector('.modal-confirm-button');
 // Función para cerrar el modal de Pedido
 function closeModal() {
     orderModal.style.display = 'none';
-    // Limpiamos el contenido del área de imagen del modal al cerrar
-    modalImageArea.innerHTML = '';
 }
 
 // Event listeners para cerrar el modal de Pedido
@@ -118,10 +110,10 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// **FUNCIÓN PARA DESCARGAR LA IMAGEN (SOLUCIÓN FINAL)**
+// **FUNCIÓN PARA DESCARGAR LA IMAGEN (SOLUCIÓN DORSAL/RECORTE - VERSIÓN FINAL)**
 function downloadImage() {
     // Referencia al contenedor completo del modal
-    const elementToCapture = document.getElementById('modal-content'); 
+    const elementToCapture = document.getElementById('modal-content'); // <-- Elemento a capturar
 
     // 1. Ocultar temporalmente los elementos que no deben aparecer
     closeButton.style.display = 'none'; 
@@ -131,10 +123,10 @@ function downloadImage() {
     document.body.style.overflow = 'hidden';
 
     // 2. Usar html2canvas para capturar **TODO el contenido del modal**
-    html2canvas(elementToCapture, { 
+    html2canvas(elementToCapture, { // <-- CAMBIO CLAVE: Capturar modal-content
         allowTaint: true, 
         useCORS: true, 
-        scale: 4, 
+        scale: 4, // Buena resolución
         scrollX: 0, 
         scrollY: 0,
     }).then(canvas => {
@@ -167,17 +159,17 @@ function downloadImage() {
 downloadButton.addEventListener('click', downloadImage);
 
 /**
- * Crea un elemento de título con el estilo deseado para el modal.
- * @param {string} text - El texto del título (ej: "EXAMPLE FRONT").
- * @param {string} id - El ID único del título (ej: "modal-front-title").
- * @returns {HTMLElement} El elemento DIV del título.
+ * Crea una etiqueta de parche con el texto y la posición especificados.
+ * @param {string} text - El texto del label (ej: "PATCH 1").
+ * @param {string} id - El ID único del elemento (ej: "modal-patch-label-1").
+ * @returns {HTMLElement} El elemento DIV de la etiqueta.
  */
-function createModalTitle(text, id) {
-    const title = document.createElement('div');
-    title.textContent = text;
-    title.id = id;
-    title.className = 'modal-image-title';
-    return title;
+function createPatchLabel(text, id) {
+    const label = document.createElement('div');
+    label.textContent = text;
+    label.id = id;
+    label.className = 'patch-label-modal'; // Clase CSS para el estilo
+    return label;
 }
 
 
@@ -214,95 +206,76 @@ document.getElementById('add-item-button').addEventListener('click', () => {
 
 
     // 2. Manejar la visualización de la imagen
-    modalImageArea.innerHTML = ''; // Limpia el contenido actual
+    modalMainImagePlaceholder.innerHTML = ''; // Limpia el contenido
 
-    // --- CONTENEDOR FLEXBOX PARA LAS DOS IMÁGENES ---
-    const dualImageContainer = document.createElement('div');
-    dualImageContainer.id = 'modal-dual-image-container'; 
-    modalImageArea.appendChild(dualImageContainer);
-    // -----------------------------------------------------------------
-
-    if (!imageURLs.main && !imageURLs.back) {
-        // Si NINGUNA de las dos imágenes está cargada
-        modalImageArea.innerHTML = '<span>No Jerseys Cargados</span>'; 
-        modalImageArea.style.minHeight = '150px'; // Ajuste de altura para placeholder simple
+    if (!imageURLs.main) {
+        // Si la imagen principal NO está cargada
+        modalMainImagePlaceholder.innerHTML = '<span>No Jersey Cargado</span>';
     } else {
-        modalImageArea.style.minHeight = '480px'; // Altura para las 2 imágenes
-
-        // --- BLOQUE IMAGEN PRINCIPAL (FRONT) ---
+        // Si la imagen principal SÍ está cargada
+        const mainImg = document.createElement('img');
+        mainImg.src = imageURLs.main;
+        mainImg.alt = 'Jersey';
+        mainImg.id = 'modal-bg-image';
+        modalMainImagePlaceholder.appendChild(mainImg);
         
-        const mainImageWrapper = document.createElement('div');
-        mainImageWrapper.className = 'modal-image-wrapper'; 
-        mainImageWrapper.id = 'modal-front-wrapper';
-        mainImageWrapper.style.position = 'relative'; // Necesario para posicionar el título
-
-        // Título FRONT
-        const titleFront = createModalTitle('EXAMPLE FRONT', 'modal-front-title');
-        titleFront.style.top = '10px';
-        mainImageWrapper.appendChild(titleFront);
-        
-        if (imageURLs.main) {
+        // Patch 2 (Right)
+        if (imageURLs.overlay1) {
+            const patch1 = document.createElement('img');
+            patch1.src = imageURLs.overlay1;
+            patch1.alt = 'Patch Right';
+            patch1.className = 'patch-overlay';
+            patch1.id = 'modal-patch-1';
+            modalMainImagePlaceholder.appendChild(patch1);
             
-            const mainImg = document.createElement('img');
-            mainImg.src = imageURLs.main;
-            mainImg.alt = 'Jersey Principal';
-            mainImg.id = 'modal-main-bg-image'; 
-            mainImageWrapper.appendChild(mainImg);
-
-            // Patches
-            if (imageURLs.overlay1) {
-                const patch1 = document.createElement('img');
-                patch1.src = imageURLs.overlay1;
-                patch1.alt = 'Patch Right';
-                patch1.className = 'patch-overlay';
-                patch1.id = 'modal-patch-1';
-                mainImageWrapper.appendChild(patch1);
-            }
-            if (imageURLs.overlay2) {
-                const patch2 = document.createElement('img');
-                patch2.src = imageURLs.overlay2;
-                patch2.alt = 'Patch Left';
-                patch2.className = 'patch-overlay';
-                patch2.id = 'modal-patch-2';
-                mainImageWrapper.appendChild(patch2);
-            }
-
-        } else {
-            // Placeholder si no hay imagen principal
-            mainImageWrapper.innerHTML += '<span>No Front Jersey</span>';
+            // Etiqueta para PATCH 2 (Right)
+            const label1 = createPatchLabel('PATCH 2', 'modal-patch-label-2');
+            modalMainImagePlaceholder.appendChild(label1);
         }
         
-        dualImageContainer.appendChild(mainImageWrapper);
-
-
-        // --- BLOQUE IMAGEN DORSO (BACK) ---
-        const backImageWrapper = document.createElement('div');
-        backImageWrapper.className = 'modal-image-wrapper';
-        backImageWrapper.id = 'modal-back-wrapper';
-        backImageWrapper.style.position = 'relative'; // Necesario para posicionar el título
-        
-        // Título BACK
-        const titleBack = createModalTitle('EXAMPLE BACK', 'modal-back-title');
-        titleBack.style.top = '10px';
-        backImageWrapper.appendChild(titleBack);
-
-        if (imageURLs.back) {
-
-            const backImg = document.createElement('img');
-            backImg.src = imageURLs.back;
-            backImg.alt = 'Jersey Dorso';
-            backImg.id = 'modal-back-bg-image'; 
-            backImageWrapper.appendChild(backImg);
-
-        } else {
-            // Placeholder si no hay imagen del dorso
-            backImageWrapper.innerHTML += '<span>No Back Jersey</span>';
+        // Patch 1 (Left)
+        if (imageURLs.overlay2) {
+            const patch2 = document.createElement('img');
+            patch2.src = imageURLs.overlay2;
+            patch2.alt = 'Patch Left';
+            patch2.className = 'patch-overlay';
+            patch2.id = 'modal-patch-2';
+            modalMainImagePlaceholder.appendChild(patch2);
+            
+            // Etiqueta para PATCH 1 (Left)
+            const label2 = createPatchLabel('PATCH 1', 'modal-patch-label-1');
+            modalMainImagePlaceholder.appendChild(label2);
         }
-        dualImageContainer.appendChild(backImageWrapper);
+
+        // Cargar la imagen de la tipografía (Dorsal) Y SU ETIQUETA
+        if (imageURLs.dorsalRef) {
+            // 1. Contenedor del dorsal
+            const dorsalRefContainer = document.createElement('div');
+            dorsalRefContainer.className = 'dorsal-ref-overlay'; 
+            
+            const dorsalRefImg = document.createElement('img');
+            dorsalRefImg.src = imageURLs.dorsalRef;
+            dorsalRefImg.alt = 'Dorsal Reference';
+            dorsalRefContainer.appendChild(dorsalRefImg);
+            
+            // 2. Etiqueta de texto
+            const dorsalLabel = document.createElement('label'); 
+            dorsalLabel.textContent = 'FONT EXAMPLE';
+            dorsalLabel.className = 'dorsal-ref-label-modal'; 
+            
+            modalMainImagePlaceholder.appendChild(dorsalRefContainer);
+            modalMainImagePlaceholder.appendChild(dorsalLabel); 
+        }
     }
 
     // 3. Mostrar el modal
     orderModal.style.display = 'block';
+
+    console.log("--- Ver Pedido ---");
+    console.log(`Talla: ${size}`);
+    console.log(`Versión: ${version}`);
+    console.log(`Nombre: ${name}`);
+    console.log(`Número: ${number}`);
 });
 
 
