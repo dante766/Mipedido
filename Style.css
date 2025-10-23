@@ -5,6 +5,7 @@
   /* Agrega espacio debajo para separarlo del botón "Upload Image" */
   margin-bottom: 10px; 
   /* Asegura que el contenedor tenga el mismo ancho que el resto de los componentes */
+  /* NOTA: Ahora que tenemos un wrapper, este width podría ser menor, pero lo mantenemos para la imagen */
   width: 400px;
 }
 
@@ -38,8 +39,27 @@ body {
   gap: 05px;
 }
 
-/* --- Área de carga principal --- */
-.main-upload-area {
+/* --- NUEVOS ESTILOS PARA ALINEACIÓN HORIZONTAL --- */
+.upload-area-wrapper {
+  display: flex;
+  gap: 15px; /* Espacio entre las dos áreas */
+  /* Ancho total: 400px + 400px + 15px = 815px (Aproximadamente) */
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.upload-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px; /* Espacio entre el botón y el área de imagen */
+}
+/* ----------------------------------------------- */
+
+
+/* --- Área de carga principal y Dorso --- */
+.main-upload-area,
+.back-upload-area { /* Aplicado a ambas áreas de 400x400 */
   position: relative;
   width: 400px;
   height: 400px;
@@ -52,7 +72,8 @@ body {
   overflow: hidden;
 }
 
-.main-upload-area .image-frame-content {
+.main-upload-area .image-frame-content,
+.back-upload-area .image-frame-content {
   width: 100%;
   height: 100%;
   display: flex;
@@ -63,6 +84,7 @@ body {
   z-index: 2;
 }
 
+/* Imagen de fondo del área principal */
 .main-upload-area img {
   max-width: 100%;
   max-height: 100%;
@@ -72,9 +94,23 @@ body {
   width: 100%;
   height: 100%;
   z-index: 1;
+  position: absolute; /* Asegura que esté detrás de los parches */
 }
 
-/* --- Cuadros de patches --- */
+/* NUEVO: Imagen de fondo del área del dorso */
+.back-upload-area img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  position: absolute;
+}
+
+/* --- Cuadros de patches (Solo en el área principal) --- */
 .overlay-container {
   position: absolute;
   display: flex;
@@ -206,6 +242,8 @@ input[type="file"] {
   background-color: #0056b3;
 }
 
+/* ESTE CONTENEDOR FUE ELIMINADO EN HTML y sus estilos son reemplazados por .upload-block y .upload-area-wrapper */
+/*
 .controls-container {
   width: 400px;
   display: flex;
@@ -213,6 +251,7 @@ input[type="file"] {
   align-items: center;
   gap: 10px;
 }
+*/
 
 /* --- Contenedor de Botones de Ayuda --- */
 .help-buttons-container {
@@ -514,7 +553,3 @@ max-width: 400px;
   margin-top: 12px;
   font-size: 14px;
 }
-
-
-
-
