@@ -1,7 +1,7 @@
 // Variable global para almacenar las URLs de las imágenes
 const imageURLs = {
   main: null,
-  back: null, // <<< NUEVA URL PARA LA IMAGEN DEL DORSO
+  back: null, // NUEVA URL PARA LA IMAGEN DEL DORSO
   overlay1: null,
   overlay2: null,
   dorsalRef: null, // URL para la referencia de tipografía/dorsal
@@ -83,7 +83,7 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
 
 // Inicialización de la subida de imágenes, ahora con claves para el objeto imageURLs
 setupImageUpload("main-image-input", "main-preview-content", "Subí una imagen principal", "main");
-setupImageUpload("back-image-input", "back-preview-content", "Upload Jersey", "back"); // <<< NUEVA INICIALIZACIÓN
+setupImageUpload("back-image-input", "back-preview-content", "Upload Jersey", "back"); // INICIALIZACIÓN NUEVA IMAGEN DORSO
 setupImageUpload("overlay-image-input-1", "overlay-frame-1", "No Patch", "overlay1");
 setupImageUpload("overlay-image-input-2", "overlay-frame-2", "No Patch", "overlay2");
 setupImageUpload("dorsal-image-input", "dorsal-frame", "Upload Dorsal Ref.", "dorsalRef");
@@ -204,67 +204,100 @@ document.getElementById('add-item-button').addEventListener('click', () => {
 
 
     // 2. Manejar la visualización de la imagen
-    modalMainImagePlaceholder.innerHTML = ''; // Limpia el contenido
+    modalMainImagePlaceholder.innerHTML = ''; // Limpia el contenido actual
 
-    if (!imageURLs.main) {
-        // Si la imagen principal NO está cargada
-        modalMainImagePlaceholder.innerHTML = '<span>No Jersey Cargado</span>';
+    // --- NUEVO CONTENEDOR PARA LAS DOS IMÁGENES DENTRO DEL PLACEHOLDER ---
+    const dualImageContainer = document.createElement('div');
+    dualImageContainer.id = 'modal-dual-image-container'; // ID para estilos CSS
+    modalMainImagePlaceholder.appendChild(dualImageContainer);
+    // -----------------------------------------------------------------
+
+    if (!imageURLs.main && !imageURLs.back) {
+        // Si NINGUNA de las dos imágenes está cargada
+        // Reemplazamos el dualImageContainer con el mensaje de error general
+        modalMainImagePlaceholder.innerHTML = '<span>No Jerseys Cargados</span>'; 
     } else {
-        // Si la imagen principal SÍ está cargada
-        const mainImg = document.createElement('img');
-        mainImg.src = imageURLs.main;
-        mainImg.alt = 'Jersey';
-        mainImg.id = 'modal-bg-image';
-        modalMainImagePlaceholder.appendChild(mainImg);
+        // Si al menos una imagen está cargada, procedemos a construir
         
-        // Patchs
-        if (imageURLs.overlay1) {
-            const patch1 = document.createElement('img');
-            patch1.src = imageURLs.overlay1;
-            patch1.alt = 'Patch Right';
-            patch1.className = 'patch-overlay';
-            patch1.id = 'modal-patch-1';
-            modalMainImagePlaceholder.appendChild(patch1);
-        }
-        
-        if (imageURLs.overlay2) {
-            const patch2 = document.createElement('img');
-            patch2.src = imageURLs.overlay2;
-            patch2.alt = 'Patch Left';
-            patch2.className = 'patch-overlay';
-            patch2.id = 'modal-patch-2';
-            modalMainImagePlaceholder.appendChild(patch2);
+        // --- BLOQUE IMAGEN PRINCIPAL (FRONT) ---
+        if (imageURLs.main) {
+            const mainImageWrapper = document.createElement('div');
+            mainImageWrapper.className = 'modal-image-wrapper'; 
+
+            const mainImg = document.createElement('img');
+            mainImg.src = imageURLs.main;
+            mainImg.alt = 'Jersey Principal';
+            mainImg.id = 'modal-main-bg-image'; 
+            mainImageWrapper.appendChild(mainImg);
+
+            // Patches
+            if (imageURLs.overlay1) {
+                const patch1 = document.createElement('img');
+                patch1.src = imageURLs.overlay1;
+                patch1.alt = 'Patch Right';
+                patch1.className = 'patch-overlay';
+                patch1.id = 'modal-patch-1';
+                mainImageWrapper.appendChild(patch1);
+            }
+            if (imageURLs.overlay2) {
+                const patch2 = document.createElement('img');
+                patch2.src = imageURLs.overlay2;
+                patch2.alt = 'Patch Left';
+                patch2.className = 'patch-overlay';
+                patch2.id = 'modal-patch-2';
+                mainImageWrapper.appendChild(patch2);
+            }
+
+            // Cargar la imagen de la tipografía (Dorsal) Y SU ETIQUETA
+            if (imageURLs.dorsalRef) {
+                // 1. Contenedor del dorsal
+                const dorsalRefContainer = document.createElement('div');
+                dorsalRefContainer.className = 'dorsal-ref-overlay'; 
+                
+                const dorsalRefImg = document.createElement('img');
+                dorsalRefImg.src = imageURLs.dorsalRef;
+                dorsalRefImg.alt = 'Dorsal Reference';
+                dorsalRefContainer.appendChild(dorsalRefImg);
+                
+                // 2. Etiqueta de texto
+                const dorsalLabel = document.createElement('label'); 
+                dorsalLabel.textContent = 'FONT EXAMPLE';
+                dorsalLabel.className = 'dorsal-ref-label-modal'; 
+                
+                mainImageWrapper.appendChild(dorsalRefContainer); // Se añade al wrapper de la imagen principal
+                mainImageWrapper.appendChild(dorsalLabel); 
+            }
+            dualImageContainer.appendChild(mainImageWrapper);
+        } else {
+            // Placeholder si no hay imagen principal
+            const noMainPlaceholder = document.createElement('div');
+            noMainPlaceholder.className = 'modal-image-wrapper no-image-placeholder';
+            noMainPlaceholder.innerHTML = '<span>No Front Jersey</span>';
+            dualImageContainer.appendChild(noMainPlaceholder);
         }
 
-        // Cargar la imagen de la tipografía (Dorsal) Y SU ETIQUETA
-        if (imageURLs.dorsalRef) {
-            // 1. Contenedor del dorsal
-            const dorsalRefContainer = document.createElement('div');
-            dorsalRefContainer.className = 'dorsal-ref-overlay'; 
-            
-            const dorsalRefImg = document.createElement('img');
-            dorsalRefImg.src = imageURLs.dorsalRef;
-            dorsalRefImg.alt = 'Dorsal Reference';
-            dorsalRefContainer.appendChild(dorsalRefImg);
-            
-            // 2. Etiqueta de texto
-            const dorsalLabel = document.createElement('label'); 
-            dorsalLabel.textContent = 'FONT EXAMPLE';
-            dorsalLabel.className = 'dorsal-ref-label-modal'; 
-            
-            modalMainImagePlaceholder.appendChild(dorsalRefContainer);
-            modalMainImagePlaceholder.appendChild(dorsalLabel); 
+        // --- BLOQUE IMAGEN DORSO (BACK) ---
+        if (imageURLs.back) {
+            const backImageWrapper = document.createElement('div');
+            backImageWrapper.className = 'modal-image-wrapper';
+
+            const backImg = document.createElement('img');
+            backImg.src = imageURLs.back;
+            backImg.alt = 'Jersey Dorso';
+            backImg.id = 'modal-back-bg-image'; 
+            backImageWrapper.appendChild(backImg);
+            dualImageContainer.appendChild(backImageWrapper);
+        } else {
+            // Placeholder si no hay imagen del dorso
+            const noBackPlaceholder = document.createElement('div');
+            noBackPlaceholder.className = 'modal-image-wrapper no-image-placeholder';
+            noBackPlaceholder.innerHTML = '<span>No Back Jersey</span>';
+            dualImageContainer.appendChild(noBackPlaceholder);
         }
     }
 
     // 3. Mostrar el modal
     orderModal.style.display = 'block';
-
-    console.log("--- Ver Pedido ---");
-    console.log(`Talla: ${size}`);
-    console.log(`Versión: ${version}`);
-    console.log(`Nombre: ${name}`);
-    console.log(`Número: ${number}`);
 });
 
 
