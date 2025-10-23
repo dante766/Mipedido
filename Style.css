@@ -176,8 +176,6 @@ body {
   left: 10px;
 }
 
-/* ELIMINADO: Todo el bloque de estilos para el dorsal en el área de carga */
-
 
 /* --- Inputs y botones --- */
 input[type="file"] {
@@ -418,8 +416,6 @@ input[type="file"] {
   left: 2%;
 }
 
-/* ELIMINADO: Estilos para el dorsal de referencia en el modal */
-
 /* INICIO DE CAMBIOS PARA DETALLES EN DOS COLUMNAS */
 .modal-details {
   display: flex; 
@@ -479,3 +475,25 @@ input[type="file"] {
   margin: 0 auto;
   border: 1px solid #ccc; /* Borde sutil para la imagen */
 }
+
+
+/* === NUEVOS ESTILOS PARA LOS TÍTULOS EN EL MODAL === */
+.modal-image-title {
+    position: absolute;
+    /* Centrado horizontalmente dentro de su contenedor (modal-image-wrapper) */
+    left: 50%; 
+    transform: translateX(-50%);
+    
+    top: 15px; /* Ajuste para que no esté pegado al borde */
+    z-index: 5; /* Asegura que esté por encima de la imagen y otros overlays */
+
+    /* Estilos de fondo y texto */
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 1.1em;
+    font-weight: bold;
+    white-space: nowrap;
+}
+/* ================================================= */
