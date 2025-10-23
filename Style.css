@@ -479,3 +479,47 @@ input[type="file"] {
   margin: 0 auto;
   border: 1px solid #ccc; /* Borde sutil para la imagen */
 }
+
+/* --- ESTILOS PARA LAS ETIQUETAS DE IMAGEN EN EL MODAL (NUEVO) --- */
+
+/* Estilo base para todas las etiquetas que usan fondo negro */
+.modal-image-wrapper .image-label {
+    position: absolute;
+    /* Base del estilo de fondo negro/letra blanca */
+    background-color: #000; 
+    color: #fff; 
+    padding: 3px 6px; 
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+    z-index: 5; /* Asegura que esté por encima de todo */
+}
+
+/* Posición para la etiqueta de la imagen frontal */
+.modal-image-wrapper #front-label {
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%); /* Centra horizontalmente */
+}
+
+/* Posición para la etiqueta de la imagen posterior */
+.modal-image-wrapper #back-label {
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%); /* Centra horizontalmente */
+}
+
+/* Posición para la etiqueta del Patch 1 (Izquierda) */
+.modal-image-wrapper #patch-2-label { /* Corresponde a overlay2/Patch 1 */
+    bottom: 120px;
+    left: 5px; 
+    padding: 5px 8px; /* Más padding para que el texto resalte más */
+}
+
+/* Posición para la etiqueta del Patch 2 (Derecha) */
+.modal-image-wrapper #patch-1-label { /* Corresponde a overlay1/Patch 2 */
+    bottom: 120px;
+    right: 5px;
+    padding: 5px 8px; /* Más padding para que el texto resalte más */
+}
