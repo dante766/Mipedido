@@ -5,7 +5,6 @@
   /* Agrega espacio debajo para separarlo del botón "Upload Image" */
   margin-bottom: 10px; 
   /* Asegura que el contenedor tenga el mismo ancho que el resto de los componentes */
-  /* NOTA: Ahora que tenemos un wrapper, este width podría ser menor, pero lo mantenemos para la imagen */
   width: 400px;
 }
 
@@ -37,6 +36,14 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 05px;
+}
+
+/* NUEVO: Wrapper para los dos botones de Upload */
+.upload-buttons-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 815px; /* 400px + 400px + 15px de gap */
+    margin-bottom: 10px;
 }
 
 /* --- NUEVOS ESTILOS PARA ALINEACIÓN HORIZONTAL --- */
@@ -97,7 +104,7 @@ body {
   position: absolute; /* Asegura que esté detrás de los parches */
 }
 
-/* NUEVO: Imagen de fondo del área del dorso */
+/* Imagen de fondo del área del dorso */
 .back-upload-area img {
   max-width: 100%;
   max-height: 100%;
@@ -169,54 +176,7 @@ body {
   left: 10px;
 }
 
-/* --- Estilos para la Tipografía (Dorsal) --- */
-.dorsal-container {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 10px; 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  z-index: 3;
-}
-
-.dorsal-frame {
-  width: 200px; 
-  height: 30px;  /* Altura configurada por el usuario */
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid #ff0000;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; 
-  cursor: pointer;
-}
-
-.dorsal-frame img {
-  width: 100%;
-  height: 100%;
-  /* CORRECCIÓN: Estira la imagen para llenar el contenedor (adaptarse) */
-  object-fit: fill; 
-}
-
-.dorsal-frame span {
-  font-size: 0.9em;
-  color: #a30000;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* NUEVO: Estilo para la etiqueta debajo del dorsal */
-.dorsal-container .dorsal-label {
-    color: #333;
-    font-size: 0.8em;
-    font-weight: bold;
-    margin-top: 5px; 
-}
-/* ------------------------------------------- */
+/* ELIMINADO: Todo el bloque de estilos para el dorsal en el área de carga */
 
 
 /* --- Inputs y botones --- */
@@ -224,8 +184,7 @@ input[type="file"] {
   display: none;
 }
 
-/* Este estilo ahora es solo para los botones de subir patchs */
-/* Los labels del dorsal usan .dorsal-label o se estilizan por defecto */
+/* Este estilo ahora es para todos los botones de subir archivo */
 .custom-file-upload {
   display: inline-block;
   padding: 5px 10px;
@@ -233,9 +192,11 @@ input[type="file"] {
   background-color: #007bff;
   color: white;
   border-radius: 5px;
-  font-size: 0.75em;
+  font-size: 0.9em; /* Aumentado ligeramente para los botones de Front/Back */
   transition: background-color 0.2s;
   text-align: center;
+  /* Añadido para que los botones de Front/Back se vean mejor */
+  flex-grow: 1; 
 }
 
 .custom-file-upload:hover {
@@ -245,7 +206,7 @@ input[type="file"] {
 
 /* --- Contenedor de Botones de Ayuda --- */
 .help-buttons-container {
-  width: 400px;
+  width: 815px; /* Ajustado al ancho del wrapper de imágenes */
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -268,7 +229,8 @@ input[type="file"] {
 
 /* --- Detalles del pedido --- */
 .order-details-container {
-  width: 400px;
+  /* CAMBIADO: Ancho de 815px para que se alinee con las imágenes */
+  width: 815px; 
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -379,42 +341,42 @@ input[type="file"] {
 .modal-image-area {
   position: relative; 
   width: 100%; 
-  height: auto; /* <--- CAMBIADO DE ALTURA FIJA A AUTO */
-  min-height: 250px; /* Altura mínima */
+  height: auto; 
+  min-height: 250px; 
   margin: 0 auto 20px auto; 
-  max-width: 850px; /* Ancho máximo para las dos imágenes + gap */
-  display: flex; /* Añadido para controlar el layout interno */
-  justify-content: center; /* Centra el contenido si es más pequeño */
-  align-items: center; /* Centra verticalmente */
-  padding: 10px 0; /* Espacio para que no se pegue al borde */
+  max-width: 850px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 10px 0; 
 }
 
-/* NUEVO: Contenedor flexbox para alinear ambas imágenes */
+/* Contenedor flexbox para alinear ambas imágenes */
 #modal-dual-image-container {
-    display: flex; /* Habilita flexbox para alinear las imágenes */
-    gap: 15px; /* Espacio entre las dos imágenes */
-    justify-content: center; /* Centra las imágenes si hay espacio extra */
-    flex-wrap: wrap; /* Permite que las imágenes salten de línea en pantallas pequeñas */
-    width: 100%; /* Ocupa todo el ancho disponible */
-    max-width: 815px; /* 400px + 400px + 15px */
+    display: flex; 
+    gap: 15px; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+    width: 100%; 
+    max-width: 815px; 
     position: relative; 
     min-height: 400px; 
 }
 
-/* NUEVO: Wrapper individual para cada imagen o placeholder en el modal */
+/* Wrapper individual para cada imagen o placeholder en el modal */
 .modal-image-wrapper {
     position: relative;
-    width: 400px; /* Ancho fijo para cada imagen (como en el área de carga) */
-    height: 400px; /* Altura fija para cada imagen */
+    width: 400px; 
+    height: 400px; 
     background-color: #e0e0e0;
     border: 2px dashed #bbb;
     border-radius: 12px;
     display: flex;
-    flex-direction: column; /* Para centrar el span verticalmente si no hay imagen */
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    flex-shrink: 0; /* Evita que las imágenes se encojan en flexbox */
+    flex-shrink: 0; 
 }
 
 /* Reajusta el span de "No Jersey Cargado" */
@@ -422,12 +384,12 @@ input[type="file"] {
   font-size: 1.2em;
   color: #888;
   text-align: center;
-  z-index: 5; /* Asegura que se vea sobre el fondo e0e0e0 */
+  z-index: 5; 
 }
 
 /* Reajusta los estilos de las imágenes dentro de los wrappers */
 .modal-image-wrapper img {
-  position: absolute; /* Para que patches y dorsal se posicionen sobre ella */
+  position: absolute; 
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -456,48 +418,7 @@ input[type="file"] {
   left: 2%;
 }
 
-/* --- Estilos para la Referencia de Tipografía en el Modal --- */
-.modal-image-wrapper .dorsal-ref-overlay {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 30px; 
-  width: 200px; 
-  height: 30px;  
-  border-radius: 8px;
-  border: 2px solid #ff0000; 
-  z-index: 2;
-  background-color: rgba(255, 255, 255, 0.9);
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  overflow: visible; 
-}
-
-.modal-image-wrapper .dorsal-ref-overlay img {
-    position: static; 
-    width: 100%;
-    height: 100%;
-    object-fit: fill; 
-}
-
-/* NUEVO ESTILO CRÍTICO: Etiqueta "Example Dorsal" en el modal para asegurar la captura */
-.modal-image-wrapper .dorsal-ref-label-modal {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 5px; 
-    z-index: 2;
-    background-color: #000; 
-    color: #fff; 
-    padding: 3px 6px; 
-    border-radius: 4px; 
-    font-size: 0.8em;
-    font-weight: bold;
-    white-space: nowrap; 
-}
-/* ---------------------------------------------------------- */
-
+/* ELIMINADO: Estilos para el dorsal de referencia en el modal */
 
 /* INICIO DE CAMBIOS PARA DETALLES EN DOS COLUMNAS */
 .modal-details {
@@ -506,7 +427,7 @@ input[type="file"] {
   gap: 15px;
   text-align: left;
   margin: 15px auto; 
-  padding: 0 5px; /* Muy reducido para móvil */
+  padding: 0 5px; 
   max-width: 450px;
 }
 
@@ -518,7 +439,6 @@ input[type="file"] {
 .modal-details p {
   margin: 5px 0;
   font-size: 1.1em;
-  /* CORRECCIÓN CLAVE: Fuerza al label y al valor a permanecer en la misma línea */
   white-space: nowrap; 
 }
 /* FIN DE CAMBIOS PARA DETALLES EN DOS COLUMNAS */
@@ -558,12 +478,4 @@ input[type="file"] {
   display: block;
   margin: 0 auto;
   border: 1px solid #ccc; /* Borde sutil para la imagen */
-}
-
-.warning-text {
-  color: #b30000;
-  font-weight: 600;
-  text-align: center;
-  margin-top: 12px;
-  font-size: 14px;
 }
