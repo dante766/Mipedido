@@ -1,6 +1,7 @@
 // Variable global para almacenar las URLs de las imágenes
 const imageURLs = {
   main: null,
+  back: null, // <<< NUEVA URL PARA LA IMAGEN DEL DORSO
   overlay1: null,
   overlay2: null,
   dorsalRef: null, // URL para la referencia de tipografía/dorsal
@@ -17,8 +18,13 @@ const helpImageMap = {
 function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
   const input = document.getElementById(inputId);
   const previewElement = document.getElementById(previewElementId);
-  const mainUploadArea = document.getElementById('main-upload-area');
-  const isMainImage = (previewElementId === "main-preview-content");
+  
+  // Modificación para manejar main y back
+  const isMainOrBackImage = (previewElementId === "main-preview-content" || previewElementId === "back-preview-content");
+  
+  // Determina el ID del contenedor padre para main/back
+  const uploadAreaId = imageKey === 'main' ? 'main-upload-area' : 'back-upload-area';
+  const uploadArea = document.getElementById(uploadAreaId);
 
   input.addEventListener("change", (event) => {
     const file = event.target.files[0];
@@ -26,8 +32,10 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
     if (!file) {
       // Si se cancela la selección, limpiamos la URL
       imageURLs[imageKey] = null; 
-      if (isMainImage) {
-        const imgElement = document.getElementById('main-bg-image');
+      if (isMainOrBackImage) {
+        // Genera el ID de la imagen: 'main-bg-image' o 'back-bg-image'
+        const imgId = imageKey === 'main' ? 'main-bg-image' : 'back-bg-image'; 
+        const imgElement = document.getElementById(imgId);
         if (imgElement) imgElement.remove();
         previewElement.style.display = 'flex';
       } else {
@@ -44,12 +52,15 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
       const url = e.target.result;
       imageURLs[imageKey] = url; // Guarda la URL
 
-      if (isMainImage) {
-        let imgElement = document.getElementById('main-bg-image');
+      if (isMainOrBackImage) {
+        // Genera el ID de la imagen: 'main-bg-image' o 'back-bg-image'
+        const imgId = imageKey === 'main' ? 'main-bg-image' : 'back-bg-image'; 
+
+        let imgElement = document.getElementById(imgId);
         if (!imgElement) {
           imgElement = document.createElement('img');
-          imgElement.id = 'main-bg-image';
-          mainUploadArea.prepend(imgElement);
+          imgElement.id = imgId;
+          uploadArea.prepend(imgElement);
         }
         imgElement.src = url;
         previewElement.style.display = 'none';
@@ -63,7 +74,7 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
     reader.readAsDataURL(file);
   });
 
-  if (!isMainImage) {
+  if (!isMainOrBackImage) {
     previewElement.addEventListener('click', () => {
       input.click();
     });
@@ -72,6 +83,7 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
 
 // Inicialización de la subida de imágenes, ahora con claves para el objeto imageURLs
 setupImageUpload("main-image-input", "main-preview-content", "Subí una imagen principal", "main");
+setupImageUpload("back-image-input", "back-preview-content", "Upload Jersey", "back"); // <<< NUEVA INICIALIZACIÓN
 setupImageUpload("overlay-image-input-1", "overlay-frame-1", "No Patch", "overlay1");
 setupImageUpload("overlay-image-input-2", "overlay-frame-2", "No Patch", "overlay2");
 setupImageUpload("dorsal-image-input", "dorsal-frame", "Upload Dorsal Ref.", "dorsalRef");
