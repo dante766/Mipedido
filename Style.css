@@ -242,16 +242,6 @@ input[type="file"] {
   background-color: #0056b3;
 }
 
-/* ESTE CONTENEDOR FUE ELIMINADO EN HTML y sus estilos son reemplazados por .upload-block y .upload-area-wrapper */
-/*
-.controls-container {
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-*/
 
 /* --- Contenedor de Botones de Ayuda --- */
 .help-buttons-container {
@@ -359,8 +349,8 @@ input[type="file"] {
   margin: 5% auto; /* 5% superior, centrado horizontalmente */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Podrías ajustar esto */
-  max-width: 500px;
+  /* CAMBIO: Aumentamos el ancho máximo para acomodar dos imágenes */
+  max-width: 900px; 
   border-radius: 10px;
   text-align: center;
   position: relative;
@@ -384,39 +374,68 @@ input[type="file"] {
   cursor: pointer;
 }
 
+
+/* --- CONTENEDOR DE IMAGENES AJUSTADO PARA DOS --- */
 .modal-image-area {
-position: relative; 
-width: 100%; 
-/* CORRECCIÓN DE ALTURA CRÍTICA: Se define una altura fija para la captura */
-height: 480px; /* <--- MODIFICADO (Estaba en 350px) */
-margin: 0 auto 20px auto; 
-max-width: 400px;
+  position: relative; 
+  width: 100%; 
+  height: auto; /* <--- CAMBIADO DE ALTURA FIJA A AUTO */
+  min-height: 250px; /* Altura mínima */
+  margin: 0 auto 20px auto; 
+  max-width: 850px; /* Ancho máximo para las dos imágenes + gap */
+  display: flex; /* Añadido para controlar el layout interno */
+  justify-content: center; /* Centra el contenido si es más pequeño */
+  align-items: center; /* Centra verticalmente */
+  padding: 10px 0; /* Espacio para que no se pegue al borde */
 }
 
-.modal-main-image-placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: #e0e0e0;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+/* NUEVO: Contenedor flexbox para alinear ambas imágenes */
+#modal-dual-image-container {
+    display: flex; /* Habilita flexbox para alinear las imágenes */
+    gap: 15px; /* Espacio entre las dos imágenes */
+    justify-content: center; /* Centra las imágenes si hay espacio extra */
+    flex-wrap: wrap; /* Permite que las imágenes salten de línea en pantallas pequeñas */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 815px; /* 400px + 400px + 15px */
+    position: relative; 
+    min-height: 400px; 
 }
 
-.modal-main-image-placeholder img {
-  position: absolute;
+/* NUEVO: Wrapper individual para cada imagen o placeholder en el modal */
+.modal-image-wrapper {
+    position: relative;
+    width: 400px; /* Ancho fijo para cada imagen (como en el área de carga) */
+    height: 400px; /* Altura fija para cada imagen */
+    background-color: #e0e0e0;
+    border: 2px dashed #bbb;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column; /* Para centrar el span verticalmente si no hay imagen */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    flex-shrink: 0; /* Evita que las imágenes se encojan en flexbox */
+}
+
+/* Reajusta el span de "No Jersey Cargado" */
+.modal-image-area .modal-image-wrapper span {
+  font-size: 1.2em;
+  color: #888;
+  text-align: center;
+  z-index: 5; /* Asegura que se vea sobre el fondo e0e0e0 */
+}
+
+/* Reajusta los estilos de las imágenes dentro de los wrappers */
+.modal-image-wrapper img {
+  position: absolute; /* Para que patches y dorsal se posicionen sobre ella */
   width: 100%;
   height: 100%;
   object-fit: contain;
   z-index: 1;
 }
 
-.modal-main-image-placeholder .patch-overlay {
+/* Posicionamiento de Patches y Dorsal DENTRO del .modal-image-wrapper */
+.modal-image-wrapper .patch-overlay {
   position: absolute;
   width: 90px;
   height: 90px;
@@ -427,54 +446,48 @@ max-width: 400px;
   background-color: rgba(255, 255, 255, 0.7);
 }
 
-.modal-main-image-placeholder #modal-patch-1 {
+.modal-image-wrapper #modal-patch-1 {
   top: 35%;
-  right: 02%;
+  right: 2%;
 }
 
-.modal-main-image-placeholder #modal-patch-2 {
+.modal-image-wrapper #modal-patch-2 {
   top: 38%;
-  left: 02%;
+  left: 2%;
 }
 
 /* --- Estilos para la Referencia de Tipografía en el Modal --- */
-.dorsal-ref-overlay {
+.modal-image-wrapper .dorsal-ref-overlay {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 30px; /* POSICION AJUSTADA: Lo subimos para dejar espacio a la etiqueta de texto */
+  bottom: 30px; 
   width: 200px; 
-  height: 30px;  /* Altura más compacta para el recuadro */
+  height: 30px;  
   border-radius: 8px;
   border: 2px solid #ff0000; 
   z-index: 2;
   background-color: rgba(255, 255, 255, 0.9);
-  
-  /* CAMBIOS CRUCIALES PARA CENTRADO Y CAPTURA */
-  display: flex; /* Habilita Flexbox */
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  overflow: visible; /* <-- ¡CRÍTICO! Cambiado de hidden a visible para evitar recorte en html2canvas */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  overflow: visible; 
 }
 
-.dorsal-ref-overlay img {
+.modal-image-wrapper .dorsal-ref-overlay img {
     position: static; 
     width: 100%;
     height: 100%;
-    /* CORRECCIÓN CRÍTICA: Estira la imagen para llenar el contenedor sin dejar espacios */
     object-fit: fill; 
 }
-/* ---------------------------------------------------------- */
 
 /* NUEVO ESTILO CRÍTICO: Etiqueta "Example Dorsal" en el modal para asegurar la captura */
-.dorsal-ref-label-modal {
+.modal-image-wrapper .dorsal-ref-label-modal {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 5px; /* Posicionado debajo del recuadro rojo (bottom: 30px) */
+    bottom: 5px; 
     z-index: 2;
-    
-    /* ESTILO DE RESALTADO QUE QUEREMOS CAPTURAR */
     background-color: #000; 
     color: #fff; 
     padding: 3px 6px; 
@@ -484,6 +497,7 @@ max-width: 400px;
     white-space: nowrap; 
 }
 /* ---------------------------------------------------------- */
+
 
 /* INICIO DE CAMBIOS PARA DETALLES EN DOS COLUMNAS */
 .modal-details {
