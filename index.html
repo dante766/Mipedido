@@ -12,56 +12,45 @@
     <div class="header-title-container">
         <img src="https://raw.githubusercontent.com/dante766/Mipedido/c95d1d133829c9fb28bc8869546cf6f78a848f22/Jersey.png" alt="Personalizador de Jerseys" class="title-image">
     </div>
-
-    <div class="upload-area-wrapper">
-        
-        <div class="upload-block">
-            <label for="main-image-input" class="custom-file-upload">Upload Image</label>
-            <div class="main-upload-area" id="main-upload-area">
-                <div class="image-frame-content" id="main-preview-content">
-                    <span>Upload Jersey</span>
-                </div>
-
-                <div class="overlay-container" id="overlay-container-1">
-                    <div class="overlay-frame" id="overlay-frame-1">
-                    <span>No Patch</span>
-                    </div>
-                    <input type="file" id="overlay-image-input-1" accept="image/*" />
-                    <label for="overlay-image-input-1" class="custom-file-upload">Patch 2</label>
-                </div>
-
-                <div class="overlay-container" id="overlay-container-2">
-                    <div class="overlay-frame" id="overlay-frame-2">
-                    <span>No Patch</span>
-                    </div>
-                    <input type="file" id="overlay-image-input-2" accept="image/*" />
-                    <label for="overlay-image-input-2" class="custom-file-upload">Patch 1</label>
-                </div>
-
-                <div class="dorsal-container" id="dorsal-container">
-                    <div class="dorsal-frame" id="dorsal-frame">
-                    <span>Upload Dorsal Ref.</span>
-                    </div>
-                    <input type="file" id="dorsal-image-input" accept="image/*" />
-                    
-                    <label for="dorsal-image-input" class="dorsal-label">FONT EXAMPLE</label>
-                </div>
-                <input type="file" id="main-image-input" accept="image/*" />
-            </div>
-        </div>
-        
-        <div class="upload-block">
-            <label for="back-image-input" class="custom-file-upload">Upload Image</label>
-            <div class="back-upload-area" id="back-upload-area">
-                <div class="image-frame-content" id="back-preview-content">
-                    <span>Upload Jersey</span>
-                </div>
-                <input type="file" id="back-image-input" accept="image/*" />
-            </div>
-        </div>
-
+    
+    <div class="upload-buttons-wrapper">
+        <label for="main-image-input" class="custom-file-upload">Upload Image (Front)</label>
+        <label for="back-image-input" class="custom-file-upload">Upload Image (Back)</label>
     </div>
     
+    <div class="upload-area-wrapper">
+        <div class="main-upload-area" id="main-upload-area">
+          <div class="image-frame-content" id="main-preview-content">
+            <span>Upload Jersey Front</span>
+          </div>
+
+          <div class="overlay-container" id="overlay-container-1">
+            <div class="overlay-frame" id="overlay-frame-1">
+              <span>No Patch</span>
+            </div>
+            <input type="file" id="overlay-image-input-1" accept="image/*" />
+            <label for="overlay-image-input-1" class="custom-file-upload">Patch 2</label>
+          </div>
+
+          <div class="overlay-container" id="overlay-container-2">
+            <div class="overlay-frame" id="overlay-frame-2">
+              <span>No Patch</span>
+            </div>
+            <input type="file" id="overlay-image-input-2" accept="image/*" />
+            <label for="overlay-image-input-2" class="custom-file-upload">Patch 1</label>
+          </div>
+
+          <input type="file" id="main-image-input" accept="image/*" />
+        </div>
+        
+        <div class="back-upload-area" id="back-upload-area">
+            <div class="image-frame-content" id="back-preview-content">
+                <span>Upload Jersey Back</span>
+            </div>
+            <input type="file" id="back-image-input" accept="image/*" />
+        </div>
+    </div>
+
     <div class="help-buttons-container">
       <button type="button" class="action-button help-button" data-version="Kid">Tabla Kid</button>
       <button type="button" class="action-button help-button" data-version="Retro">Tabla Retro</button>
@@ -103,9 +92,6 @@
         <button type="button" id="add-item-button" class="action-button">Agregar Item</button>
       </div>
     </div>
-        <p class="warning-text">
-      ⚠️ Enviar al proveedor una foto del dorsal como referencia para la tipografía a utilizar.
-    </p>
   </div>
   
   <div id="order-modal" class="modal">
