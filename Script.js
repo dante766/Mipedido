@@ -4,7 +4,6 @@ const imageURLs = {
   back: null, // URL para la imagen del dorso
   overlay1: null,
   overlay2: null,
-  // ELIMINADO: dorsalRef: null,
 };
 
 // MAPA DE URLS PARA LAS TABLAS DE AYUDA (¡CORREGIDAS A RAW.GITHUBUSERCONTENT!)
@@ -24,7 +23,7 @@ function setupImageUpload(inputId, previewElementId, defaultText, imageKey) {
   
   // Determina el ID del contenedor padre para main/back
   const uploadAreaId = imageKey === 'main' ? 'main-upload-area' : 'back-upload-area';
-  // Solo se obtiene si existe (para parches)
+  // Solo se obtiene si existe (para main/back)
   const uploadArea = document.getElementById(uploadAreaId); 
 
   input.addEventListener("change", (event) => {
@@ -82,7 +81,6 @@ setupImageUpload("main-image-input", "main-preview-content", "Upload Jersey Fron
 setupImageUpload("back-image-input", "back-preview-content", "Upload Jersey Back", "back"); 
 setupImageUpload("overlay-image-input-1", "overlay-frame-1", "No Patch", "overlay1");
 setupImageUpload("overlay-image-input-2", "overlay-frame-2", "No Patch", "overlay2");
-// ELIMINADO: setupImageUpload("dorsal-image-input", "dorsal-frame", "Upload Dorsal Ref.", "dorsalRef");
 
 
 // --- Lógica del Modal de Pedido (Pop-up) ---
@@ -92,8 +90,8 @@ const closeButton = document.querySelector('.close-button');
 
 // REFERENCIA AL CONTENIDO COMPLETO DEL MODAL PARA LA CAPTURA (¡CORREGIDO!)
 const modalContent = document.getElementById('modal-content'); 
+const modalImageArea = document.querySelector('.modal-image-area');
 
-const modalMainImagePlaceholder = document.getElementById('modal-main-image-placeholder');
 const modalSize = document.getElementById('modal-size');
 const modalVersion = document.getElementById('modal-version');
 const modalName = document.getElementById('modal-name');
@@ -108,6 +106,8 @@ const downloadButton = document.querySelector('.modal-confirm-button');
 // Función para cerrar el modal de Pedido
 function closeModal() {
     orderModal.style.display = 'none';
+    // Limpiamos el contenido del área de imagen del modal al cerrar
+    modalImageArea.innerHTML = '';
 }
 
 // Event listeners para cerrar el modal de Pedido
@@ -166,6 +166,20 @@ function downloadImage() {
 // **Event Listener para el botón "Descargar"**
 downloadButton.addEventListener('click', downloadImage);
 
+/**
+ * Crea un elemento de título con el estilo deseado para el modal.
+ * @param {string} text - El texto del título (ej: "EXAMPLE FRONT").
+ * @param {string} id - El ID único del título (ej: "modal-front-title").
+ * @returns {HTMLElement} El elemento DIV del título.
+ */
+function createModalTitle(text, id) {
+    const title = document.createElement('div');
+    title.textContent = text;
+    title.id = id;
+    title.className = 'modal-image-title';
+    return title;
+}
+
 
 // Botón "Agregar Item" para mostrar el modal de Pedido
 document.getElementById('add-item-button').addEventListener('click', () => {
@@ -200,24 +214,35 @@ document.getElementById('add-item-button').addEventListener('click', () => {
 
 
     // 2. Manejar la visualización de la imagen
-    modalMainImagePlaceholder.innerHTML = ''; // Limpia el contenido actual
+    modalImageArea.innerHTML = ''; // Limpia el contenido actual
 
     // --- CONTENEDOR FLEXBOX PARA LAS DOS IMÁGENES ---
     const dualImageContainer = document.createElement('div');
     dualImageContainer.id = 'modal-dual-image-container'; 
-    modalMainImagePlaceholder.appendChild(dualImageContainer);
+    modalImageArea.appendChild(dualImageContainer);
     // -----------------------------------------------------------------
 
     if (!imageURLs.main && !imageURLs.back) {
         // Si NINGUNA de las dos imágenes está cargada
-        modalMainImagePlaceholder.innerHTML = '<span>No Jerseys Cargados</span>'; 
+        modalImageArea.innerHTML = '<span>No Jerseys Cargados</span>'; 
+        modalImageArea.style.minHeight = '150px'; // Ajuste de altura para placeholder simple
     } else {
-        // --- BLOQUE IMAGEN PRINCIPAL (FRONT) ---
-        if (imageURLs.main) {
-            const mainImageWrapper = document.createElement('div');
-            mainImageWrapper.className = 'modal-image-wrapper'; 
-            mainImageWrapper.id = 'modal-front-wrapper';
+        modalImageArea.style.minHeight = '480px'; // Altura para las 2 imágenes
 
+        // --- BLOQUE IMAGEN PRINCIPAL (FRONT) ---
+        
+        const mainImageWrapper = document.createElement('div');
+        mainImageWrapper.className = 'modal-image-wrapper'; 
+        mainImageWrapper.id = 'modal-front-wrapper';
+        mainImageWrapper.style.position = 'relative'; // Necesario para posicionar el título
+
+        // Título FRONT
+        const titleFront = createModalTitle('EXAMPLE FRONT', 'modal-front-title');
+        titleFront.style.top = '10px';
+        mainImageWrapper.appendChild(titleFront);
+        
+        if (imageURLs.main) {
+            
             const mainImg = document.createElement('img');
             mainImg.src = imageURLs.main;
             mainImg.alt = 'Jersey Principal';
@@ -242,36 +267,38 @@ document.getElementById('add-item-button').addEventListener('click', () => {
                 mainImageWrapper.appendChild(patch2);
             }
 
-            // ELIMINADA LA LÓGICA DEL DORSAL DE REFERENCIA
-
-            dualImageContainer.appendChild(mainImageWrapper);
         } else {
             // Placeholder si no hay imagen principal
-            const noMainPlaceholder = document.createElement('div');
-            noMainPlaceholder.className = 'modal-image-wrapper no-image-placeholder';
-            noMainPlaceholder.innerHTML = '<span>No Front Jersey</span>';
-            dualImageContainer.appendChild(noMainPlaceholder);
+            mainImageWrapper.innerHTML += '<span>No Front Jersey</span>';
         }
+        
+        dualImageContainer.appendChild(mainImageWrapper);
+
 
         // --- BLOQUE IMAGEN DORSO (BACK) ---
+        const backImageWrapper = document.createElement('div');
+        backImageWrapper.className = 'modal-image-wrapper';
+        backImageWrapper.id = 'modal-back-wrapper';
+        backImageWrapper.style.position = 'relative'; // Necesario para posicionar el título
+        
+        // Título BACK
+        const titleBack = createModalTitle('EXAMPLE BACK', 'modal-back-title');
+        titleBack.style.top = '10px';
+        backImageWrapper.appendChild(titleBack);
+
         if (imageURLs.back) {
-            const backImageWrapper = document.createElement('div');
-            backImageWrapper.className = 'modal-image-wrapper';
-            backImageWrapper.id = 'modal-back-wrapper';
 
             const backImg = document.createElement('img');
             backImg.src = imageURLs.back;
             backImg.alt = 'Jersey Dorso';
             backImg.id = 'modal-back-bg-image'; 
             backImageWrapper.appendChild(backImg);
-            dualImageContainer.appendChild(backImageWrapper);
+
         } else {
             // Placeholder si no hay imagen del dorso
-            const noBackPlaceholder = document.createElement('div');
-            noBackPlaceholder.className = 'modal-image-wrapper no-image-placeholder';
-            noBackPlaceholder.innerHTML = '<span>No Back Jersey</span>';
-            dualImageContainer.appendChild(noBackPlaceholder);
+            backImageWrapper.innerHTML += '<span>No Back Jersey</span>';
         }
+        dualImageContainer.appendChild(backImageWrapper);
     }
 
     // 3. Mostrar el modal
