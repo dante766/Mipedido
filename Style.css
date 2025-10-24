@@ -512,7 +512,7 @@ input[type="file"] {
 
 /* Posición para la etiqueta del Patch 1 (Izquierda) */
 .modal-image-wrapper #patch-2-label { /* Corresponde a overlay2/Patch 1 */
-    bottom: 120px;
+    bottom: 90px;
     left: 5px; 
     padding: 5px 8px; /* Más padding para que el texto resalte más */
 }
@@ -657,6 +657,19 @@ input[type="file"] {
         box-sizing: border-box; /* Asegura que el borde no fuerce el crecimiento */
     }
     
+    /* AÑADIDO: Asegura que EXAMPLE FRONT/BACK no se envuelva */
+    .modal-image-wrapper #front-label,
+    .modal-image-wrapper #back-label {
+        white-space: nowrap; 
+    }
+
+    /* 👇 AJUSTE CLAVE: Nueva posición para las etiquetas de Parche en móvil */
+    .modal-image-wrapper #patch-2-label, /* Corresponde a overlay2/Patch 1 */
+    .modal-image-wrapper #patch-1-label { /* Corresponde a overlay1/Patch 2 */
+        bottom: 88px; /* Valor ajustado para dispositivos móviles */
+    }	
+	
+	
     /* Apila las columnas de detalles del modal */
     .modal-details {
         flex-direction: column;
@@ -672,5 +685,4 @@ input[type="file"] {
     }
 }
 /* ------------------------------------------------------------- */
-
 
