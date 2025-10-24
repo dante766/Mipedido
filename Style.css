@@ -523,3 +523,94 @@ input[type="file"] {
     right: 5px;
     padding: 5px 8px; /* Más padding para que el texto resalte más */
 }
+
+/* --- Media Query para Dispositivos Móviles (ancho máximo 840px) --- */
+@media screen and (max-width: 840px) {
+  
+    /* 1. Contenedor Principal (Container) */
+    /* Asegura que el contenedor principal pueda ajustarse a un ancho menor a 815px */
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    /* 2. Reducción de Elementos de Ancho Fijo (815px) */
+    /* Todos los contenedores de 815px deben reducir su ancho para caber en la pantalla. */
+    .upload-buttons-wrapper,
+    .upload-area-wrapper,
+    .help-buttons-container,
+    .order-details-container {
+        width: 100%; /* Ocupa el 100% del ancho disponible en la pantalla pequeña */
+        flex-direction: column; /* Apila el contenido verticalmente si es un flex-container */
+        gap: 10px;
+    }
+
+    /* 3. Reorganización de las Áreas de Carga (400px + 400px) */
+    /* La clave es hacer que los bloques de 400x400 se apilen verticalmente. */
+    .upload-area-wrapper {
+        flex-direction: column; /* Mantiene una columna de carga encima de la otra */
+        align-items: center; /* Centra los bloques de carga */
+    }
+
+    /* 4. Ajuste de las Áreas de 400x400 */
+    .main-upload-area,
+    .back-upload-area,
+    .upload-block {
+        width: 100%; /* Hace que los bloques de 400px ocupen todo el ancho */
+        height: auto; /* Permite que la altura se ajuste proporcionalmente si la imagen es flexible */
+        max-width: 400px; /* Limita su ancho máximo a 400px para pantallas grandes */
+    }
+
+    /* 5. Ajuste de los Patches para que se vean bien dentro de un ancho flexible */
+    #overlay-container-1,
+    #overlay-container-2 {
+        /* Se pueden mantener las posiciones absolutas, pero asegúrate que no se salgan del borde */
+        bottom: 10px; /* Mueve los patches a la parte inferior para dar más espacio a la imagen */
+        /* Reajusta las posiciones horizontales si es necesario, o déjalas como están */
+    }
+
+    /* 6. Ajuste de los Botones de Ayuda (Hacen que se apilen) */
+    .help-buttons-container {
+        flex-direction: column;
+    }
+
+    /* 7. Ajuste de los Detalles del Pedido */
+    .detail-group {
+        flex-direction: column; /* Apila etiqueta y campo de entrada */
+        align-items: flex-start;
+    }
+    
+    .detail-group label {
+        width: auto;
+        text-align: left;
+    }
+
+    /* 8. Estilos del Modal (Ajuste para centrar y reducir el tamaño) */
+    .modal-content {
+        width: 95%; 
+        margin: 5% auto;
+        max-width: 95%; /* Asegura que el modal no sea muy ancho */
+    }
+
+    /* Hace que las dos imágenes del modal también se apilen verticalmente */
+    #modal-dual-image-container {
+        flex-direction: column; 
+        gap: 10px; 
+        max-width: 100%; 
+        align-items: center; 
+    }
+
+    .modal-image-wrapper {
+        width: 100%;
+        max-width: 350px; /* Un tamaño más razonable para el móvil */
+        height: 350px;
+    }
+
+    /* Apila las columnas de detalles del modal */
+    .modal-details {
+        flex-direction: column;
+        max-width: 100%; 
+    }
+
+}
+/* ------------------------------------------------------------- */
