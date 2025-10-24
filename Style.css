@@ -644,13 +644,14 @@ input[type="file"] {
         gap: 10px; 
         max-width: 100%; 
         align-items: center; 
+        min-height: auto; /* AÑADIDO: Corrige el estiramiento vertical */
     }
 
     /* Ajusta el tamaño de la imagen del modal */
     .modal-image-wrapper {
         width: 100%;
-        max-width: 400px; 
-        height: 400px; /* Mantiene la altura */
+        max-width: 350px; /* MODIFICADO: Tamaño más compacto para móviles */
+        height: 350px; /* MODIFICADO: Para mantener la proporción cuadrada */
     }
     
     /* Apila las columnas de detalles del modal */
