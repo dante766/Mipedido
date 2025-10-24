@@ -649,8 +649,8 @@ input[type="file"] {
 
     /* AJUSTE CLAVE: Aplica !important al ancho y alto individual para forzar la proporción cuadrada */
     .modal-image-wrapper {
-        display: block !important; /* 🔥 CAMBIO CLAVE: Desactiva Flexbox para forzar el respeto de la altura fija */
-        width: 100% !important; 
+        /* display: block !important; /* 🔥 CAMBIO CLAVE: Desactiva Flexbox para forzar el respeto de la altura fija */
+       /*  width: 100% !important; */
         max-width: 350px !important; /* Tamaño compacto para móviles */
         height: 350px !important; /* Mantiene la proporción cuadrada */
         box-sizing: border-box; /* Asegura que el borde no fuerce el crecimiento */
@@ -671,3 +671,4 @@ input[type="file"] {
     }
 }
 /* ------------------------------------------------------------- */
+
