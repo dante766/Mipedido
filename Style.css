@@ -360,7 +360,7 @@ input[type="file"] {
     width: 100%; 
     max-width: 815px; 
     position: relative; 
-    min-height: 400px; 
+    min-height: 400px; /* ESTA REGLA GLOBAL ES LA CAUSANTE DEL PROBLEMA EN MÓVIL */
 }
 
 /* Wrapper individual para cada imagen o placeholder en el modal */
@@ -638,20 +638,20 @@ input[type="file"] {
         padding: 10px;
     }
 
-    /* Apila las imágenes del modal */
+    /* Contenedor Dual de Imágenes (Solución de Estiramiento) */
     #modal-dual-image-container {
         flex-direction: column; 
         gap: 10px; 
         max-width: 100%; 
         align-items: center; 
-        min-height: auto; /* AÑADIDO: Corrige el estiramiento vertical */
+        min-height: auto !important; /* <--- AJUSTE CLAVE: Anula la regla global y evita el estiramiento */
     }
 
     /* Ajusta el tamaño de la imagen del modal */
     .modal-image-wrapper {
         width: 100%;
-        max-width: 350px; /* MODIFICADO: Tamaño más compacto para móviles */
-        height: 350px; /* MODIFICADO: Para mantener la proporción cuadrada */
+        max-width: 350px; /* Tamaño compacto para móviles */
+        height: 350px; /* Mantiene la proporción cuadrada */
     }
     
     /* Apila las columnas de detalles del modal */
