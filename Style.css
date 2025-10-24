@@ -636,6 +636,7 @@ input[type="file"] {
         margin: 5% auto;
         max-width: 95%; 
         padding: 10px;
+        padding-bottom: 30px;
     }
 
     /* Contenedor Dual de Imágenes (Solución de Estiramiento) */
@@ -671,4 +672,5 @@ input[type="file"] {
     }
 }
 /* ------------------------------------------------------------- */
+
 
