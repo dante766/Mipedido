@@ -408,14 +408,17 @@ input[type="file"] {
   background-color: rgba(255, 255, 255, 0.7);
 }
 
-.modal-image-wrapper #modal-patch-1 {
-  top: 35%;
+/* 👇 MEJORA 1 y 2: POSICIONAMIENTO UNIFORME Y CENTRADO DE LAS IMAGENES DE PARCHE (WEB/MOVIL) */
+.modal-image-wrapper #modal-patch-1 { /* Patch 2 (Derecha) */
+  top: 40%; 
   right: 2%;
+  transform: translateY(-50%); /* Centrado vertical para web y móvil */
 }
 
-.modal-image-wrapper #modal-patch-2 {
-  top: 38%;
+.modal-image-wrapper #modal-patch-2 { /* Patch 1 (Izquierda) */
+  top: 40%;
   left: 2%;
+  transform: translateY(-50%); /* Centrado vertical para web y móvil */
 }
 
 /* ELIMINADO: Estilos para el dorsal de referencia en el modal */
@@ -510,18 +513,20 @@ input[type="file"] {
     transform: translateX(-50%); /* Centra horizontalmente */
 }
 
-/* Posición para la etiqueta del Patch 1 (Izquierda) */
+/* 👇 MEJORA 2: POSICIONAMIENTO DE ETIQUETAS DE PARCHE EN WEB */
 .modal-image-wrapper #patch-2-label { /* Corresponde a overlay2/Patch 1 */
-    bottom: 90px;
+    top: 40%; /* Anclaje vertical al mismo punto del parche */
     left: 5px; 
-    padding: 5px 8px; /* Más padding para que el texto resalte más */
+    padding: 5px 8px; 
+    transform: translateY(100%); /* Desplaza la etiqueta por debajo del parche (90px) */
 }
 
 /* Posición para la etiqueta del Patch 2 (Derecha) */
 .modal-image-wrapper #patch-1-label { /* Corresponde a overlay1/Patch 2 */
-    bottom: 120px;
+    top: 40%; /* Anclaje vertical al mismo punto del parche */
     right: 5px;
-    padding: 5px 8px; /* Más padding para que el texto resalte más */
+    padding: 5px 8px;
+    transform: translateY(100%); /* Desplaza la etiqueta por debajo del parche (90px) */
 }
 
 
@@ -650,26 +655,21 @@ input[type="file"] {
 
     /* AJUSTE CLAVE: Aplica !important al ancho y alto individual para forzar la proporción cuadrada */
     .modal-image-wrapper {
-        /* display: block !important; /* 🔥 CAMBIO CLAVE: Desactiva Flexbox para forzar el respeto de la altura fija */
-       /*  width: 100% !important; */
-        max-width: 350px !important; /* Tamaño compacto para móviles */
-        height: 350px !important; /* Mantiene la proporción cuadrada */
+       /* display: block !important; */
+       /* width: 100% !important; */
+        max-width: 370px !important; /* Tamaño compacto para móviles y más espacio para EXAMPLE FRONT */
+        height: 370px !important; /* Mantiene la proporción cuadrada */
         box-sizing: border-box; /* Asegura que el borde no fuerce el crecimiento */
     }
     
-    /* AÑADIDO: Asegura que EXAMPLE FRONT/BACK no se envuelva */
+    /* MEJORA 3: Asegura que EXAMPLE FRONT/BACK no se envuelva */
     .modal-image-wrapper #front-label,
     .modal-image-wrapper #back-label {
         white-space: nowrap; 
     }
-
-    /* 👇 AJUSTE CLAVE: Nueva posición para las etiquetas de Parche en móvil */
-    .modal-image-wrapper #patch-2-label, /* Corresponde a overlay2/Patch 1 */
-    .modal-image-wrapper #patch-1-label { /* Corresponde a overlay1/Patch 2 */
-        bottom: 88px; /* Valor ajustado para dispositivos móviles */
-    }	
-	
-	
+    
+    /* Las etiquetas de parche ahora usan la misma regla de top: 40% que la web, haciendo innecesario el bottom: 88px */
+    
     /* Apila las columnas de detalles del modal */
     .modal-details {
         flex-direction: column;
@@ -685,4 +685,3 @@ input[type="file"] {
     }
 }
 /* ------------------------------------------------------------- */
-
