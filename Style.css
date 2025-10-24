@@ -524,75 +524,121 @@ input[type="file"] {
     padding: 5px 8px; /* Más padding para que el texto resalte más */
 }
 
-/* --- Media Query para Dispositivos Móviles (ancho máximo 840px) --- */
+
+/* --- Solución Responsive para Móviles y Tabletas Pequeñas (max-width: 840px) --- */
 @media screen and (max-width: 840px) {
   
-    /* 1. Contenedor Principal (Container) */
-    /* Asegura que el contenedor principal pueda ajustarse a un ancho menor a 815px */
+    /* 1. Ajuste del Contenedor Principal y Título */
     .container {
         width: 100%;
         padding: 10px;
+        box-sizing: border-box; /* Asegura que el padding no cause scroll horizontal */
+    }
+    
+    .header-title-container {
+        width: 100%;
+        max-width: 400px; /* Limita el ancho del título, pero permite que se ajuste */
     }
 
-    /* 2. Reducción de Elementos de Ancho Fijo (815px) */
-    /* Todos los contenedores de 815px deben reducir su ancho para caber en la pantalla. */
+    /* 2. Ajuste de Wrappers y Contenedores de 815px */
     .upload-buttons-wrapper,
     .upload-area-wrapper,
     .help-buttons-container,
     .order-details-container {
-        width: 100%; /* Ocupa el 100% del ancho disponible en la pantalla pequeña */
-        flex-direction: column; /* Apila el contenido verticalmente si es un flex-container */
+        width: 100%; /* Ocupa el 100% del ancho disponible */
+        max-width: 400px; /* Limita el ancho total a 400px para centrar en pantallas medianas */
+        flex-direction: column; /* Apila el contenido verticalmente */
+        gap: 10px;
+        margin-left: auto; /* Centrado */
+        margin-right: auto; /* Centrado */
+    }
+
+    /* 3. Botones de "Upload" (Front/Back) */
+    .upload-buttons-wrapper {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .custom-file-upload {
+        width: 100%; 
+        box-sizing: border-box; 
+        flex-grow: 0; 
+    }
+
+    /* 4. Áreas de Carga (400x400) */
+    .upload-area-wrapper {
+        flex-direction: column;
+        align-items: center; /* Centra los bloques de 400px */
         gap: 10px;
     }
 
-    /* 3. Reorganización de las Áreas de Carga (400px + 400px) */
-    /* La clave es hacer que los bloques de 400x400 se apilen verticalmente. */
-    .upload-area-wrapper {
-        flex-direction: column; /* Mantiene una columna de carga encima de la otra */
-        align-items: center; /* Centra los bloques de carga */
-    }
-
-    /* 4. Ajuste de las Áreas de 400x400 */
-    .main-upload-area,
-    .back-upload-area,
     .upload-block {
-        width: 100%; /* Hace que los bloques de 400px ocupen todo el ancho */
-        height: auto; /* Permite que la altura se ajuste proporcionalmente si la imagen es flexible */
-        max-width: 400px; /* Limita su ancho máximo a 400px para pantallas grandes */
+        width: 100%;
+        max-width: 400px;
     }
 
-    /* 5. Ajuste de los Patches para que se vean bien dentro de un ancho flexible */
-    #overlay-container-1,
-    #overlay-container-2 {
-        /* Se pueden mantener las posiciones absolutas, pero asegúrate que no se salgan del borde */
-        bottom: 10px; /* Mueve los patches a la parte inferior para dar más espacio a la imagen */
-        /* Reajusta las posiciones horizontales si es necesario, o déjalas como están */
+    .main-upload-area,
+    .back-upload-area {
+        width: 100%;
+        max-width: 400px; /* Mantiene la proporción de 400x400 si es posible */
+        height: 400px;
     }
-
-    /* 6. Ajuste de los Botones de Ayuda (Hacen que se apilen) */
+    
+    /* 5. Patches Overlay (Asegura que funcionen con position: absolute) */
+    /* No es necesario modificar aquí ya que dependen de position: relative en .main-upload-area */
+    
+    /* 6. Botones de Ayuda/Tablas */
     .help-buttons-container {
         flex-direction: column;
     }
 
-    /* 7. Ajuste de los Detalles del Pedido */
+    .help-buttons-container .help-button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* 7. Detalles del Pedido (Inputs) */
     .detail-group {
-        flex-direction: column; /* Apila etiqueta y campo de entrada */
+        flex-direction: column; 
         align-items: flex-start;
+        gap: 5px;
     }
     
     .detail-group label {
-        width: auto;
-        text-align: left;
+        width: 100%;
+        text-align: left; /* Alinea la etiqueta a la izquierda */
+    }
+    
+    .detail-group select,
+    .detail-group input[type="text"],
+    .detail-group input[type="number"] {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .number-and-button-group {
+        width: 100%;
+        box-sizing: border-box;
     }
 
-    /* 8. Estilos del Modal (Ajuste para centrar y reducir el tamaño) */
+    .number-and-button-group input[type="number"] {
+        width: 80px; /* Mantiene un ancho fijo para el input de número */
+        flex-shrink: 0; /* Evita que se encoja */
+    }
+    
+    .action-button {
+        flex-grow: 1;
+    }
+
+    /* 8. Estilos del Modal */
     .modal-content {
         width: 95%; 
         margin: 5% auto;
-        max-width: 95%; /* Asegura que el modal no sea muy ancho */
+        max-width: 95%; 
+        padding: 10px;
     }
 
-    /* Hace que las dos imágenes del modal también se apilen verticalmente */
+    /* Apila las imágenes del modal */
     #modal-dual-image-container {
         flex-direction: column; 
         gap: 10px; 
@@ -600,17 +646,25 @@ input[type="file"] {
         align-items: center; 
     }
 
+    /* Ajusta el tamaño de la imagen del modal */
     .modal-image-wrapper {
         width: 100%;
-        max-width: 350px; /* Un tamaño más razonable para el móvil */
-        height: 350px;
+        max-width: 400px; 
+        height: 400px; /* Mantiene la altura */
     }
-
+    
     /* Apila las columnas de detalles del modal */
     .modal-details {
         flex-direction: column;
         max-width: 100%; 
     }
-
+    
+    .detail-column-group {
+        min-width: 100%;
+    }
+    
+    .modal-details p strong {
+        display: inline; /* Vuelve al comportamiento inline en móvil si es necesario */
+    }
 }
 /* ------------------------------------------------------------- */
